@@ -17,10 +17,10 @@ const App = ({login, ping}) => {
 
 };
 
-const mapStateToProps = ({login}) => {
-  console.log(login);
+const mapStateToProps = (state) => {
+  console.log(state);
   return {
-    login
+    login: state.login
   }
 }
 

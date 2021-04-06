@@ -3,8 +3,8 @@ import api from '../apis';
 export const ping = () => async dispatch => {
   const res = await fetch(api.url + '/',
     {...api.options, method: 'GET'}
-  ).then(res => res.json());
-  if (res.status === '200' && res.message === 'ok'){
+  ).then(resp => resp.json());
+  if (res.status === 200 && res.message === 'ok'){
     return dispatch({type: 'LOGIN', payload: true});
   } 
   return dispatch({type: 'LOGIN', payload: false});
