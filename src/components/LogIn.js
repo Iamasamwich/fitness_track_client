@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
-import {login} from '../actions';
+import {login, changePage} from '../actions';
 
-const LogIn = ({login}) => {
+const LogIn = ({login, changePage}) => {
 
   const [email, setEmail] = useState('testAddUser@test.com');
   const [pword, setPword] = useState('newPassword');
@@ -10,6 +10,11 @@ const LogIn = ({login}) => {
   const onSubmit = e => {
     e.preventDefault();
     login({email, pword});
+  };
+  
+  const clickCreate = e => {
+    e.preventDefault();
+    changePage('signup');
   };
 
   return (
@@ -40,10 +45,13 @@ const LogIn = ({login}) => {
           Log In
         </button>
       </form>
+      <div className="content">
+        <p><a onClick={clickCreate}>Create an account</a></p>
+      </div>
     </div>
   );
 };
 
 export default connect(null, {
-  login
+  login, changePage
 })(LogIn);
