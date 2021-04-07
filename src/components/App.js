@@ -22,7 +22,6 @@ const App = ({login, page, ping}) => {
 };
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     login: state.login,
     page: state.page

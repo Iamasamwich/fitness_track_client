@@ -4,8 +4,8 @@ import {login, changePage} from '../actions';
 
 const LogIn = ({login, changePage}) => {
 
-  const [email, setEmail] = useState('testAddUser@test.com');
-  const [pword, setPword] = useState('newPassword');
+  const [email, setEmail] = useState('');
+  const [pword, setPword] = useState('');
 
   const onSubmit = e => {
     e.preventDefault();
