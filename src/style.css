@@ -1,0 +1,17 @@
+.navbar {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  z-index: 100;
+  background: pink;
+}
+
+
+p.fakeLink {
+  color: blue;
+}
+p.fakeLink:hover {
+  cursor:pointer;
+  text-decoration: underline;
+}

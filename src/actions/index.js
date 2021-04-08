@@ -11,6 +11,16 @@ export const ping = () => async dispatch => {
   };
 };
 
+export const logout = () => async dispatch => {
+  const res = await fetch(api.url + '/logout', 
+  {...api.options, method: 'POST'}
+  ).then(resp => resp.json());
+  if (res.status === 200 && res.message === 'Logged Out') {
+    dispatch({type: 'LOGIN', payload: false});
+    dispatch({type: 'PAGE', payload: 'login'});
+  };
+};
+
 export const login = (body) => async dispatch => {
   const res = await fetch(api.url + '/login',
     {...api.options, method: 'POST', body: JSON.stringify(body)}
@@ -29,6 +39,7 @@ export const changePage = (page) => dispatch => {
 };
 
 export const signUp = (body) => async dispatch => {
+  console.log('got here');
   const res = await fetch(api.url + '/signup', 
     {...api.options, method: 'POST', body: JSON.stringify(body)}
   )
@@ -41,3 +52,5 @@ export const signUp = (body) => async dispatch => {
     dispatch({type: 'CHANGE_PAGE', payload: 'signup'});
   };
 };
+
+

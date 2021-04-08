@@ -1,20 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {signUp} from '../actions';
+import {signUp, changePage} from '../actions';
 
-const SignUp = ({signUp}) => {
+const SignUp = ({signUp, changePage}) => {
 
   const [name, setName] = useState('Sam');
   const [email, setEmail] = useState('sam@sam.com');
   const [pword, setPword] = useState('password');
   const [confPword, setConfPword] = useState('password');
   const [errors, setErrors] = useState({
-    name: 'error',
-    email: 'error',
-    pword: 'error',
-    confPword: 'error'
+    name: '',
+    email: '',
+    pword: '',
+    confPword: ''
   });
-  const [anyError, setAnyError] = useState(true);
+  const [anyError, setAnyError] = useState(false);
 
   useEffect(() => {
     if (name.length > 0) {
@@ -47,7 +47,6 @@ const SignUp = ({signUp}) => {
   useEffect(() => {
     for (const property in errors) {
       if (errors[property] === 'error') {
-        setAnyError(true);
         if (anyError === false) {
           setAnyError(true);
         }
@@ -76,25 +75,28 @@ const SignUp = ({signUp}) => {
     return anyError === false
       ? (
         <button
-          type="submit"
-          onClick={signUpClicked}>
+          className="ui button positive"
+          type="submit">
             Sign Up!
         </button>
       )
       : null;
   };
 
-  const signUpClicked = e => {
+  const formSubmit = (e) => {
     e.preventDefault();
     if (anyError) {
+      console.log('errors, bailing');
       return;
     };
     signUp({name, email, pword});
-  };
+  }
 
   return (
     <div className="ui container">
-      <div className="ui form">
+      <form 
+        className="ui form"
+        onSubmit={formSubmit}>
         <div className={`field ${errors.name}`}>
           <label>What should we call you?</label>
           <input 
@@ -121,14 +123,14 @@ const SignUp = ({signUp}) => {
         </div>
         {showConf()}
         {showSubmit()}
-      </div>
+        <button
+          className="ui button red"
+          onClick={() => changePage('login')}>
+            Cancel
+          </button>
+      </form>
     </div>
   );
 };
 
-export default connect(null, {signUp})(SignUp);
-
-
-// !req.body.email ||
-// !req.body.name ||
-// !req.body.pword
+export default connect(null, {signUp, changePage})(SignUp);

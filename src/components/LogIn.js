@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {login, changePage} from '../actions';
 
@@ -6,14 +6,52 @@ const LogIn = ({login, changePage}) => {
 
   const [email, setEmail] = useState('');
   const [pword, setPword] = useState('');
+  const [errors, setErrors] = useState({
+    email: '',
+    pword: ''
+  });
+  const [anyError, setAnyError] = useState(false);
+
+  useEffect(() => {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const emailOk = re.test(email.toLowerCase());
+    
+    if (emailOk && pword.length > 0) {
+      setErrors({email: '', pword: ''});
+    } else if (emailOk && pword.length === 0) {
+      setErrors({email: '', pword: 'error'});
+    } else if (!emailOk && pword.length > 0) {
+      setErrors({email: 'error', pword: ''});
+    } else {
+      setErrors({email: 'error', pword: 'error'});
+    };
+  }, [email, pword]);
+
+  useEffect(() => {
+    for (const property in errors) {
+      if (errors[property] === 'error') {
+        setAnyError(true);
+        if (anyError === false) {
+          setAnyError(true);
+        }
+        return;
+      };
+    };
+    setAnyError(false)
+  }, [errors]);
 
   const onSubmit = e => {
     e.preventDefault();
-    login({email, pword});
+    if (anyError === false) {
+      login({email, pword});
+    } else {
+      return;
+    };
   };
   
   const clickCreate = e => {
     e.preventDefault();
+    console.log(e.target);
     changePage('signup');
   };
 
@@ -23,7 +61,7 @@ const LogIn = ({login, changePage}) => {
         className='ui form'
         onSubmit={onSubmit}
       >
-        <div className="field">
+        <div className={`field ${errors.email}`}>
           <label>Email:</label>
           <input
             type='text'
@@ -32,7 +70,7 @@ const LogIn = ({login, changePage}) => {
             value={email}
             onChange={e => setEmail(e.target.value)} />
         </div>
-        <div className="field">
+        <div className={`field ${errors.pword}`}>
           <label>Password:</label>
           <input
             type='password'
@@ -41,12 +79,16 @@ const LogIn = ({login, changePage}) => {
             value={pword}
             onChange={e => setPword(e.target.value)} />
         </div>
-        <button className="ui button" type="submit">
+        <button className={`ui button ${anyError ? '' : 'positive'}`} type="submit">
           Log In
         </button>
       </form>
       <div className="content">
-        <p><a onClick={clickCreate}>Create an account</a></p>
+        <p 
+          className="fakeLink" 
+          onClick={clickCreate}>
+          Create an account
+        </p>
       </div>
     </div>
   );
