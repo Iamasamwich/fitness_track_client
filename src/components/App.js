@@ -4,6 +4,9 @@ import {ping, changePage, logout} from '../actions';
 import NavBar from './NavBar';
 import LogIn from './LogIn';
 import SignUp from './SignUp';
+import Choice from './Choice';
+import CreateSession from './CreateSession';
+import ViewData from './ViewData';
 
 
 
@@ -14,23 +17,26 @@ const App = ({login, page, ping, logout}) => {
   }, []);
 
   const unlogged = () => {
-    if (page === 'signup') {
-      return (
-        <SignUp />
-      );
-    };
-    return <LogIn />;
+    switch (page) {
+      case 'signup':
+        return <SignUp />;
+      default: 
+        return <LogIn />;
+    }
   };
 
   const logged = () => {
-    return (
-      <div style={{paddingTop: '30px'}}>
-        App...
-        <button onClick={() => logout()}>Log out</button>
-      </div>
-    );
+    switch (page) {
+      case 'createSession':
+        return <CreateSession />;
+      case 'viewData':
+        return <ViewData />;
+      default: 
+        return <Choice />;
+    }
   }
 
+  console.log(page);
 
   return (
     <Fragment>
@@ -42,38 +48,12 @@ const App = ({login, page, ping, logout}) => {
     </Fragment>
   );
 
-
-
-  // if (!login) {
-  //   if (page === 'signup') {
-  //     return (
-  //       <Fragment>
-  //         <NavBar />
-  //         <SignUp />
-  //       </Fragment>
-  //     );
-  //   }
-  //   return (
-  //     <Fragment>
-  //       <NavBar />
-  //       <LogIn />
-  //     </Fragment>
-  //   );
-  // } 
-
-  // return (
-  //   <Fragment>
-  //     <NavBar />
-  //     App y'all
-  //   </Fragment>
-  //   );
-
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({login, page}) => {
   return {
-    login: state.login,
-    page: state.page
+    login,
+    page
   }
 }
 

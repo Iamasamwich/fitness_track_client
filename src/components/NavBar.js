@@ -1,39 +1,52 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {connect} from 'react-redux';
-import {logout} from '../actions';
+import {logout, changePage} from '../actions';
 
-const NavBar = ({login, page}) => {
+const NavBar = ({login, logout, page, changePage}) => {
   const [menu, setMenu] = useState(false);
+  const ref = useRef();
 
   useEffect(() => {
-    const onBodyClick = e => {
-      console.log(e.target);
+    const menuClicker = (e) => {
+      if (ref.current && ref.current.contains(e.target)) {
+        return;
+      }
+      setMenu(false);
     };
-      
-    document.body.addEventListener('click', onBodyClick);
+    document.body.addEventListener('click', menuClicker);
     return () => {
-      document.body.removeEventListener('click', onBodyClick);
+      document.removeEventListener('click', menuClicker);
     }
   }, []);
 
-  const menuClicked = e => {
-    console.log(e.target);
-  }
-
   return (
-    <div className="navbar">
+    <div className="navbar" id="navbar">
+      {login ?
+        <div>
+          <i 
+            className="home icon large"
+            onClick={()=> changePage('login')} />
+        </div>
+      : null}
       <div
-        id="menu"
-        className="ui dropdown">
+        ref={ref}
+        className="ui dropdown"
+        onClick={() => setMenu(!menu)}>
         <i className="bars icon large" />
-        <div className="menu transition visible active">
-          <div className="item">Trees</div>
-          <div className="item">Dogs</div>
+        <div 
+          className={`cust_menu menu transition ${menu ? 'visible active' : ''}`}>
+          <div className="item">Profile</div>
+          <div className="item">About</div>
+          {login ?
+            <div 
+              className="item"
+              onClick={() => logout()}>
+              Log Out
+            </div>
+            :
+            null}
         </div>
       </div>
-      {login ?
-        <div>should be working</div> :
-        null}
     </div>
   )
 };
@@ -45,5 +58,5 @@ const mapStateToProps = ({login, page}) => {
   }
 }
 
-export default connect(mapStateToProps, {logout})(NavBar);
+export default connect(mapStateToProps, {logout, changePage})(NavBar);
 

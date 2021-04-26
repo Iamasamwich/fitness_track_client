@@ -4,8 +4,8 @@ import {login, changePage} from '../actions';
 
 const LogIn = ({login, changePage}) => {
 
-  const [email, setEmail] = useState('');
-  const [pword, setPword] = useState('');
+  const [email, setEmail] = useState('sam@sam.com');
+  const [pword, setPword] = useState('password');
   const [errors, setErrors] = useState({
     email: '',
     pword: ''
