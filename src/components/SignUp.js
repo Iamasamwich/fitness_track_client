@@ -4,62 +4,61 @@ import {signUp, changePage} from '../actions';
 
 const SignUp = ({signUp, changePage}) => {
 
-  const [name, setName] = useState('Sam');
-  const [email, setEmail] = useState('sam@sam.com');
-  const [pword, setPword] = useState('password');
-  const [confPword, setConfPword] = useState('password');
-  const [errors, setErrors] = useState({
-    name: '',
-    email: '',
-    pword: '',
-    confPword: ''
-  });
+  const [name, setName] = useState('');
+  const [nameError, setNameError] = useState('');
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [pword, setPword] = useState('');
+  const [pwordError, setPwordError] = useState('');
+  const [confPword, setConfPword] = useState('');
+  const [confPwordError, setConfPwordError] = useState('');
   const [anyError, setAnyError] = useState(false);
 
   useEffect(() => {
-    if (name.length > 0) {
-      setErrors({...errors, name: ''});
+    if (name) {
+      setNameError('');
     } else {
-      setErrors({...errors, name: 'error'});
+      setNameError('error');
     };
   }, [name]);
 
   useEffect(() => {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (re.test(email.toLowerCase())) {
-      setErrors({...errors, email: ''});
+      setEmailError('');
     } else {
-      setErrors({...errors, email: 'error'});
+      setEmailError('error');
     };
   }, [email]);
 
   useEffect(() => {
-    if (pword.length > 0 && pword === confPword) {
-      setErrors({...errors, pword: '', confPword: ''});
-    } else if (pword.length > 0 && pword !== confPword) {
-      setErrors({...errors, pword: '', confPword: 'error'});
-    } else if (pword.length <= 0) {
-      setErrors({...errors, pword: 'error', confPword: 'error'});
+    if (pword && pword === confPword) {
+      setPwordError('');
+      setConfPwordError('');
+    } else if (pword && pword !== confPword) {
+      setPwordError('');
+      setConfPwordError('error');
+    } else if (!pword) {
+      setPwordError('error');
+      setConfPwordError('error');
       setConfPword('');
     };
   }, [pword, confPword]);
 
+
+
   useEffect(() => {
-    for (const property in errors) {
-      if (errors[property] === 'error') {
-        if (anyError === false) {
-          setAnyError(true);
-        }
-        return;
-      };
+    if (nameError || emailError || pwordError || confPwordError) {
+      setAnyError(true)
+    } else {
+      setAnyError(false);
     };
-    setAnyError(false)
-  }, [errors])
+  }, [nameError, emailError, pwordError, confPwordError]);
 
   const showConf = () => {
-    return errors.pword === ''
+    return !pwordError
       ? (   
-          <div className={`field ${errors.confPword}`}>
+          <div className={`field ${confPwordError}`}>
             <label>Confirm password</label>
             <input
               placeholder="Confirm password"
@@ -72,7 +71,7 @@ const SignUp = ({signUp, changePage}) => {
   };
 
   const showSubmit = () => {
-    return anyError === false
+    return !anyError
       ? (
         <button
           className="ui button positive"
@@ -97,7 +96,8 @@ const SignUp = ({signUp, changePage}) => {
       <form 
         className="ui form"
         onSubmit={formSubmit}>
-        <div className={`field ${errors.name}`}>
+
+        <div className={`field ${nameError}`}>
           <label>What should we call you?</label>
           <input 
             placeholder="Freddles"
@@ -105,7 +105,8 @@ const SignUp = ({signUp, changePage}) => {
             value={name}
             onChange={e => setName(e.target.value)} />
         </div>
-        <div className={`field ${errors.email}`}>
+
+        <div className={`field ${emailError}`}>
           <label>Your email?</label>
           <input 
             placeholder="winifred@email.com"
@@ -113,7 +114,8 @@ const SignUp = ({signUp, changePage}) => {
             value={email}
             onChange={e => setEmail(e.target.value)} />
         </div>
-        <div className={`field ${errors.pword}`}>
+
+        <div className={`field ${pwordError}`}>
           <label>Password</label>
           <input 
             placeholder="Password"
@@ -121,8 +123,11 @@ const SignUp = ({signUp, changePage}) => {
             value={pword}
             onChange={e => setPword(e.target.value)} />
         </div>
+
         {showConf()}
+
         {showSubmit()}
+
         <button
           className="ui button red"
           onClick={() => changePage('login')}>

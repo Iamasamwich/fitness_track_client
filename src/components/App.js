@@ -10,11 +10,12 @@ import ViewData from './ViewData';
 
 
 
-const App = ({login, page, ping, logout}) => {
+const App = ({login, page, ping}) => {
 
   useEffect(()=> {
+    console.log('pinging');
     ping();
-  }, []);
+  }, [ping]);
 
   const unlogged = () => {
     switch (page) {
@@ -35,8 +36,6 @@ const App = ({login, page, ping, logout}) => {
         return <Choice />;
     }
   }
-
-  console.log(page);
 
   return (
     <Fragment>
