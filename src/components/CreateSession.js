@@ -1,27 +1,27 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 
-import {changePage} from '../actions';
+import {changePage, createSession} from '../actions';
 
-const CreateSession = ({changePage}) => {
+const CreateSession = ({changePage, createSession}) => {
 
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState('2021-05-18');
   const [dateError, setDateError] = useState('');
-  const [distance, setDistance] = useState('');
+  const [distance, setDistance] = useState('18.3');
   const [distanceError, setDistanceError] = useState('');
-  const [time, setTime] = useState('');
+  const [time, setTime] = useState('2664');
   const [timeError, setTimeError] = useState('');
-  const [weight, setWeight] = useState('');
+  const [weight, setWeight] = useState('73');
   const [weightError, setWeightError] = useState('');
-  const [route, setRoute] = useState('');
+  const [route, setRoute] = useState('Norths RFC');
   const [routeError, setRouteError] = useState('');
-  const [notes, setNotes] = useState('');
+  const [notes, setNotes] = useState('so... tired....');
   const [notesError, setNotesError] = useState('');
 
   const [anyError, setAnyError] = useState(false);
 
   useEffect(() => {
-    const re = /\d{4}-\d{2}-\d{2}/
+    const re = /^\d{4}-\d{2}-\d{2}$/
     if (re.test(date)) {
       setDateError('');
     } else {
@@ -79,8 +79,13 @@ const CreateSession = ({changePage}) => {
 
   const formSubmit = (e) => {
     e.preventDefault();
+    if (anyError) {
+      console.log('errors, bailing...');
+      return;
+    };
     console.log('form submitted');
-  }
+    createSession({date, distance, time, weight, route, notes});
+  };
 
   const showSubmit = () => {
     return anyError === false
@@ -161,6 +166,4 @@ const CreateSession = ({changePage}) => {
   )
 };
 
-export default connect(null, {
-  changePage
-})(CreateSession);
+export default connect(null, {changePage, createSession})(CreateSession);

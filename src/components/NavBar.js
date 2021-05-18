@@ -56,7 +56,7 @@ const mapStateToProps = ({login, page}) => {
     login,
     page
   }
-}
+};
 
 export default connect(mapStateToProps, {logout, changePage})(NavBar);
 

@@ -38,7 +38,6 @@ export const changePage = (page) => dispatch => {
 };
 
 export const signUp = (body) => async dispatch => {
-  console.log('got here');
   const res = await fetch(api.url + '/signup', 
     {...api.options, method: 'POST', body: JSON.stringify(body)}
   )
@@ -51,5 +50,26 @@ export const signUp = (body) => async dispatch => {
     dispatch({type: 'CHANGE_PAGE', payload: 'signup'});
   };
 };
+
+export const createSession = (body) => async dispatch => {
+  console.log('actions/createSession running');
+  const res = await fetch(api.url + '/createSession',
+    {...api.options, method: 'POST', body: JSON.stringify(body)}
+  )
+  .then(res => res.json());
+  console.log(res);
+  dispatch({type: 'CHANGE_PAGE', payload: login});
+};
+
+export const getMonthSessions = () => async dispatch => {
+  console.log('actions/getMonthSesssions running');
+  const res = await fetch(api.url + '/getMonthSessions', 
+    {...api.options, method: 'GET'}
+  )
+  .then(res => res.json());
+  if (res.status === 200) {
+    dispatch({type: 'SET_SESSIONS', payload: res.sessions});
+  };
+}
 
 
