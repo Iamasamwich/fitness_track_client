@@ -71,6 +71,17 @@ export const getMonthSessions = () => async dispatch => {
   if (res.status === 200) {
     dispatch({type: 'SET_SESSIONS', payload: res.sessions});
   };
-}
+};
+
+export const getAllSessions = () => async dispatch => {
+  console.log('actions/getAllSessions running');
+  const res = await fetch(api.url + '/getAllSessions',
+    {...api.options, method: 'GET'}
+  )
+  .then(res => res.json());
+  if (res.status === 200) {
+    dispatch({type: 'SET_SESSIONS', payload: res.sessions});
+  };
+};
 
 

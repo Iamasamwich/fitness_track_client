@@ -3,6 +3,10 @@
   background: palegreen;
 }
 
+.container {
+  background: pink;
+}
+
 
 .navbar {
   width: 100%;

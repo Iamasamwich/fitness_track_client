@@ -6,7 +6,6 @@ import LogIn from './LogIn';
 import SignUp from './SignUp';
 import Choice from './Choice';
 import CreateSession from './CreateSession';
-import CalendarTest from './CalendarTest';
 import ViewData from './ViewData';
 
 

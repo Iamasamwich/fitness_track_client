@@ -6,7 +6,7 @@ import {changePage} from '../actions';
 const Choice = ({changePage}) => {
   return (
     <div
-      className="container" style={{background: "pink"}}>
+      className="container">
       <div className="cust_half_height">
         <div 
           className="cust_button"
