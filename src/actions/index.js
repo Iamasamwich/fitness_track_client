@@ -53,6 +53,7 @@ export const signUp = (body) => async dispatch => {
 
 export const createSession = (body) => async dispatch => {
   console.log('actions/createSession running');
+  body.date = body.date.split('-').reverse().join('-');
   const res = await fetch(api.url + '/createSession',
     {...api.options, method: 'POST', body: JSON.stringify(body)}
   )

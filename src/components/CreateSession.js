@@ -1,11 +1,19 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
+import {DateInput} from 'semantic-ui-calendar-react';
 
 import {changePage, createSession} from '../actions';
 
 const CreateSession = ({changePage, createSession}) => {
 
-  const [date, setDate] = useState('2021-05-18');
+  const twoDigits = num => {
+    return num < 10 ?
+      "0" + num :
+      num;
+  };
+  const d = new Date();
+
+  const [date, setDate] = useState(twoDigits(d.getDate()) + '-' + twoDigits((d.getMonth() + 1)) + '-' + d.getFullYear());
   const [dateError, setDateError] = useState('');
   const [distance, setDistance] = useState('18.3');
   const [distanceError, setDistanceError] = useState('');
@@ -21,7 +29,7 @@ const CreateSession = ({changePage, createSession}) => {
   const [anyError, setAnyError] = useState(false);
 
   useEffect(() => {
-    const re = /^\d{4}-\d{2}-\d{2}$/
+    const re = /^\d{2}-\d{2}-\d{4}$/
     if (re.test(date)) {
       setDateError('');
     } else {
@@ -99,6 +107,10 @@ const CreateSession = ({changePage, createSession}) => {
     :null;
   };
 
+  const handleDateChange = (e, {name, value}) => {
+    setDate(value);
+  };
+
   return (
     <div className="ui container">
       <form
@@ -106,11 +118,15 @@ const CreateSession = ({changePage, createSession}) => {
         onSubmit={formSubmit}>
 
           <div className={`field ${dateError}`}>
-            <label>Session Date (yyyy--mm-dd)</label>
-            <input
-              placeholder="yyyy-mm-dd"
+            <label>Session Date</label>
+            <DateInput
+              name="date"
+              placeholder="Date"
               value={date}
-              onChange={e => setDate(e.target.value)} />
+              autoComplete="off"
+              onChange={handleDateChange}
+              closable={true}
+            />
           </div>
 
           <div className={`field ${distanceError}`}>
