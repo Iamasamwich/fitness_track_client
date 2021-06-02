@@ -15,15 +15,17 @@ const CreateSession = ({changePage, createSession}) => {
 
   const [date, setDate] = useState(twoDigits(d.getDate()) + '-' + twoDigits((d.getMonth() + 1)) + '-' + d.getFullYear());
   const [dateError, setDateError] = useState('');
-  const [distance, setDistance] = useState('18.3');
+  const [distance, setDistance] = useState('');
   const [distanceError, setDistanceError] = useState('');
-  const [time, setTime] = useState('2664');
+  const [secs, setSecs] = useState('');
+  const [mins, setMins] = useState('');
+  const [hours, setHours] = useState('');
   const [timeError, setTimeError] = useState('');
-  const [weight, setWeight] = useState('73');
+  const [weight, setWeight] = useState('');
   const [weightError, setWeightError] = useState('');
-  const [route, setRoute] = useState('Norths RFC');
+  const [route, setRoute] = useState('');
   const [routeError, setRouteError] = useState('');
-  const [notes, setNotes] = useState('so... tired....');
+  const [notes, setNotes] = useState('');
   const [notesError, setNotesError] = useState('');
 
   const [anyError, setAnyError] = useState(false);
@@ -38,20 +40,26 @@ const CreateSession = ({changePage, createSession}) => {
   }, [date]);
 
   useEffect(() => {
-    if (!isNaN(distance) && distance > 0) {
+    const re = /^[0-9]{0,3}[.]{0,1}[0-9]{0,3}$/;
+    if (!isNaN(distance) && distance > 0 && re.test(distance)) {
       setDistanceError('');
     } else {
+      console.log(typeof(distance));
       setDistanceError('error');
     };
   }, [distance]);
 
   useEffect(() => {
-    if (!isNaN(time) && time > 0) {
-      setTimeError('');
-    } else {
-      setTimeError('error');
-    };
-  }, [time]);
+    if (
+        (!isNaN(hours) || !isNaN(mins) || !isNaN(secs)) &&
+        (Number(hours) >= 0 && Number(mins) >= 0 && Number(secs) >= 0) && 
+        ((Number(hours) + Number(mins) + Number(secs)) > 0)
+      ) {
+        setTimeError('');
+      } else {
+        setTimeError('error');
+      }
+  }, [hours, mins, secs]);
 
   useEffect(() => {
     if (!isNaN(weight) && weight) {
@@ -92,7 +100,7 @@ const CreateSession = ({changePage, createSession}) => {
       return;
     };
     console.log('form submitted');
-    createSession({date, distance, time, weight, route, notes});
+    createSession({date, distance, hours, mins, secs, weight, route, notes});
   };
 
   const showSubmit = () => {
@@ -137,12 +145,29 @@ const CreateSession = ({changePage, createSession}) => {
               onChange={e => setDistance(e.target.value)} />
           </div>
 
-          <div className={`field ${timeError}`}>
-            <label>Session duration (seconds)</label>
-            <input
-              placeholder="Length in seconds"
-              value={time}
-              onChange={e => setTime(e.target.value)} />
+          <div className={`field time-field ${timeError}`}>
+            <label>Session Duration</label>
+            <input 
+              className="time-input" 
+              type="number"
+              placeholder="hh"
+              value={hours}
+              onChange={e => setHours(e.target.value)} />
+            <span>h</span>
+            <input 
+              className="time-input" 
+              type="number"
+              placeholder="mm"
+              value={mins}
+              onChange={e => setMins(e.target.value)} />  
+            <span>m</span>
+            <input 
+              className="time-input" 
+              type="number"
+              placeholder="ss"
+              value={secs}
+              onChange={e => setSecs(e.target.value)} />  
+            <span>s</span>
           </div>
 
           <div className={`field ${weightError}`}>

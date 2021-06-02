@@ -1,11 +1,11 @@
 /* delete these when done styling... */
-.navbar {
+/* .navbar {
   background: palegreen;
 }
 
 .container {
   background: pink;
-}
+} */
 
 
 .navbar {
@@ -46,4 +46,14 @@ p.fakeLink {
 p.fakeLink:hover {
   cursor:pointer;
   text-decoration: underline;
+  align-items: center;
+}
+
+.time-field > *{
+  display: inline-block;
+  
+}
+
+.time-input {
+  width: 25% !important;
 }
