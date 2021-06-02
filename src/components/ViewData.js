@@ -7,6 +7,7 @@ import {getMonthSessions, getAllSessions} from '../actions';
 const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
 
   const [fetchedSessions, setFetchedSessions] = useState([]);
+  const [display, setDisplay] = useState('distTime');
 
   useEffect(() => {
     getMonthSessions();
@@ -29,22 +30,36 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
     return arr.join('-');
   }
 
-  if (fetchedSessions.length === 0) {
-    console.log('no data');
-    return (
-      <div>Loading</div>
-    )
-  } else {
-    console.log(fetchedSessions.length);
-    return (
+  const renderGraph = (display) => {
+    let left, right;
+    switch (display) {
+      case "distTime":
+        left = "distance";
+        right = "time";
+        break;
+      case "distSpeed":
+        left = "distance";
+        right = "speed";
+        break;
+      case "distWeight":
+        left = "distance";
+        right = "weight";
+        break;
+      default:
+        left = "distance";
+        right = "time";
+        break;
+    };
 
-      <ResponsiveContainer width="100%" height={500}>
+
+    return (
+      <ResponsiveContainer width="100%" height={450}>
         <LineChart
           data={fetchedSessions}
           margin={{top: 10, right: 10, bottom: 100, left: 10}}>
           <CartesianGrid />
           <Tooltip />
-          
+
           <XAxis 
             dataKey="unix" 
             scale="time" 
@@ -86,6 +101,39 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
             stroke='#00ff00' />
         </LineChart>
       </ResponsiveContainer>
+    );
+  };
+
+  if (fetchedSessions.length === 0) {
+    return (
+      <div>Loading</div>
+    )
+  } else {
+    console.log(display);
+    return (
+      <div>
+        {renderGraph(display)}
+        <div style={{height: "150px", backgroundColor: '#ddd'}}>
+          <div>
+            <button 
+              className="ui button green"
+              onClick={e => setDisplay('distTime')}>
+              Distance Time
+            </button>
+            <button 
+              className="ui button green"
+              onClick={e => setDisplay('distSpeed')}>
+              Distance Speed
+            </button>
+            <button
+              className="ui button green"
+              onClick={e => setDisplay('distWeight')}>
+              Distance Weight
+            </button>
+          </div>
+
+        </div>
+      </div>
     );
   }
 };
