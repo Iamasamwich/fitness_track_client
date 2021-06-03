@@ -28,27 +28,36 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
     const d = new Date(unix);
     const arr = [d.getDate(), d.getMonth() + 1, d.getFullYear()];
     return arr.join('-');
-  }
+  };
 
   const renderGraph = (display) => {
     let left, right;
     switch (display) {
       case "distTime":
-        left = "distance";
-        right = "time";
+        left = {datakey: "distance", label: "Distance (km)"};
+        right = {dataKey: "time", label: "Time (s)"};
         break;
       case "distSpeed":
-        left = "distance";
-        right = "speed";
+        left = {dataKey: "distance", label: "Distance (km)"};
+        right = {dataKey: "speed", label: "Avg. Speed (km/h)"};
         break;
       case "distWeight":
-        left = "distance";
-        right = "weight";
+        left = {dataKey: "distance", label: "Distance (km)"};
+        right = {dataKey: "weight", label: "Weight (kg)"};
         break;
       default:
         left = "distance";
         right = "time";
         break;
+    };
+
+
+    console.log(fetchedSessions);
+
+    const timeTick = (time) => {
+      const h = Math.floor(time / 3600);
+      const m = Math.floor((time - (h * 3600)) / 60);
+      return `${h}h ${m}m`;
     };
 
 
@@ -71,20 +80,38 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
             angle={85} 
             padding={{left: 10, right: 10}} />
 
-          <YAxis 
+
+{/* Distance */}
+          <YAxis
             padding={{top: 10, bottom: 10}}
             yAxisId="left"
+            orientation="left"
+            type="number"
+            domain={['auto', 'auto']}
+            label={{value: 'Distance (km)', angle: -90, position: 'innerLeft', fill: 'rgba(0, 0, 255, 1)'}} />
+          
+          <Line
+            dataKey="distance"
+            yAxisId="left"
+            type="monotone"
+            stroke="#0000FF"
+          />
+
+          <YAxis 
+            padding={{top: 10, bottom: 10}}
+            yAxisId="right"
+            orientation="right"
             type="number"
             domain={["auto", "auto"]}
-            tickFormatter={time => Math.abs(time)}
-            label={{value: 'time (s)', angle: -90, position: 'insideLeft'}} />
+            tickFormatter={timeTick}
+            label={{value: "Time (s)", angle: 90, position: 'innerRight', fill: 'rgba(255,0,0,1)'}} />
           <Line
             dataKey="time"
-            yAxisId="left"
+            yAxisId="right"
             type="monotone"
             stroke="#FF0000"/>
 
-          <YAxis 
+          {/* <YAxis 
             yAxisId="right"
             padding={{top: 10, bottom: 10}}
             orientation='right'
@@ -98,7 +125,7 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
             dataKey="weight"
             yAxisId='right'
             type='monotone'
-            stroke='#00ff00' />
+            stroke='#00ff00' /> */}
         </LineChart>
       </ResponsiveContainer>
     );
@@ -113,6 +140,8 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
     return (
       <div>
         {renderGraph(display)}
+
+        
         <div style={{height: "150px", backgroundColor: '#ddd'}}>
           <div>
             <button 
