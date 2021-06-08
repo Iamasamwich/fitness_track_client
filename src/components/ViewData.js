@@ -7,7 +7,7 @@ import {getMonthSessions, getAllSessions} from '../actions';
 const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
 
   const [fetchedSessions, setFetchedSessions] = useState([]);
-  const [display, setDisplay] = useState('time');
+  const [display, setDisplay] = useState('speed');
 
   useEffect(() => {
     getMonthSessions();
