@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {ResponsiveContainer, ComposedChart, LineChart, Line, CartesianGrid, Legend, XAxis, YAxis, Label, Tooltip} from 'recharts';
+import {ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip} from 'recharts';
 
 import {getMonthSessions, getAllSessions} from '../actions';
 
@@ -8,14 +8,15 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
 
   const [fetchedSessions, setFetchedSessions] = useState([]);
   const [display, setDisplay] = useState('speed');
-
-  // useEffect(() => {
-  //   getMonthSessions();
-  // }, [getMonthSessions]);
+  const [period, setPeriod] = useState('month');
 
   useEffect(() => {
-    getAllSessions();
-  }, [getAllSessions]);
+    if (period === 'month') {
+      getMonthSessions();
+    } else {
+      getAllSessions();
+    };
+  }, [getAllSessions, getMonthSessions, period]);
 
   useEffect(() => {
     sessions.forEach(session => {
@@ -31,24 +32,44 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
   };
 
   const renderButtons = () => {
+    const setColour = (disp) => {
+      return disp === display ? "blue" : "green";
+    };
+
     return (
       <div style={{height: "150px", backgroundColor: '#ddd'}}>
         <div>
           <button 
-            className="ui button green"
-            onClick={e => setDisplay('time')}>
-            Time
-          </button>
-          <button 
-            className="ui button green"
+            className={`ui button ${setColour('speed')}`}
             onClick={e => setDisplay('speed')}>
             Speed
           </button>
+          <button 
+            className={`ui button ${setColour('time')}`}
+            onClick={e => setDisplay('time')}>
+            Time
+          </button>
           <button
-            className="ui button green"
+            className={`ui button ${setColour('weight')}`}
             onClick={e => setDisplay('weight')}>
             Weight
           </button>
+        </div>
+        <div>
+          {
+            period === 'month' ?
+            <button
+              className="ui button green"
+              onClick={()=> setPeriod('all')}>
+              Show All
+            </button>
+            :
+            <button
+            className="ui button green"
+            onClick={() => setPeriod('month')}>
+              Show 30 days
+            </button>
+          }
         </div>
       </div>
     );
@@ -185,7 +206,5 @@ const mapStateToProps = ({sessions}) => {
     sessions
   }
 };
-
-
 
 export default connect(mapStateToProps, {getMonthSessions, getAllSessions})(ViewData);
