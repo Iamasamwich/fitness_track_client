@@ -9,13 +9,13 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
   const [fetchedSessions, setFetchedSessions] = useState([]);
   const [display, setDisplay] = useState('speed');
 
-  useEffect(() => {
-    getMonthSessions();
-  }, [getMonthSessions]);
-
   // useEffect(() => {
-  //   getAllSessions();
-  // }, [getAllSessions]);
+  //   getMonthSessions();
+  // }, [getMonthSessions]);
+
+  useEffect(() => {
+    getAllSessions();
+  }, [getAllSessions]);
 
   useEffect(() => {
     sessions.forEach(session => {
@@ -55,9 +55,7 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
   };
 
   const renderGraph = (display) => {
-
     let right;
-
     const time = {
       dataKey: "time", 
       label: "Time (s)",
@@ -95,25 +93,42 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
         break;
     };
 
+    const dates = [fetchedSessions[0].unix, fetchedSessions[fetchedSessions.length -1].unix];
+
+    const toolTipContent = ({active, payload, label}) => {
+      if (active && payload.length) {
+        const data = payload[0].payload;
+        return (
+          <div className="custom-tooltip">
+            <p className="label">{`Date: ${unixToDate(data.unix)}`}</p>
+            <p className="desc">{`Distance: ${data.distance}km`}</p>
+            <p className="desc">Time: 1h 14m 23s</p>
+            <p className="desc">{`Avg. Speed: ${data.speed}km/h`}</p>
+            <p className="desc">{`Route: ${data.route}`}</p>
+          </div>
+        );
+      };
+      return null;
+    };
+
     return (
       <ResponsiveContainer width="100%" height={450}>
         <LineChart
           data={fetchedSessions}
           margin={{top: 10, right: 10, bottom: 100, left: 10}}>
           <CartesianGrid />
-          <Tooltip />
-
+          <Tooltip content={toolTipContent} />
           <XAxis 
             dataKey="unix" 
             scale="time" 
             domain={['auto', 'auto']}
             tickFormatter={unix => unixToDate(unix)}
+            ticks={[dates[0], dates[1]]}
+            interval="preserveStartEnd"
             type="number"
-            interval={0}
             dy={30}
             angle={85} 
             padding={{left: 10, right: 10}} />
-
 {/* distance on left axis */}
           <YAxis
             padding={{top: 10, bottom: 10}}
@@ -128,9 +143,7 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
             yAxisId="left"
             type="monotone"
             stroke="#0000FF" />
-
 {/* variable on right axis */}
-
           <YAxis
             padding={{top: 10, bottom: 10}}
             yAxisId="right"
@@ -141,7 +154,6 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
             tickFormatter={(data) => right.tickFormatter(data)}
             label={{value: right.label, angle: 90, position: 'right', fill: 'rgba(255, 0, 0, 1'}}
           />
-
           <Line
             dataKey={right.dataKey}
             yAxisId="right"

@@ -51,9 +51,19 @@ p.fakeLink:hover {
 
 .time-field > *{
   display: inline-block;
-  
 }
 
 .time-input {
   width: 25% !important;
+}
+
+.custom-tooltip {
+  border: 1px solid black;
+  border-radius: 1em;
+  padding: 0.5em;
+  background: rgba(240,240,240,0.9);
+}
+
+.custom-tooltip > .label {
+  font-weight: bold;
 }
