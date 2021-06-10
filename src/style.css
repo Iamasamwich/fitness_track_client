@@ -67,3 +67,14 @@ p.fakeLink:hover {
 .custom-tooltip > .label {
   font-weight: bold;
 }
+
+.graph-bottom {
+  height: calc(100% - 450px - 40px);
+  background-color: #ddd;
+}
+
+.graph-bottom > div {
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}

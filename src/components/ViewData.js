@@ -37,8 +37,8 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
     };
 
     return (
-      <div style={{height: "150px", backgroundColor: '#ddd'}}>
-        <div>
+      <div className="graph-bottom" style={{height: "150px", backgroundColor: '#ddd'}}>
+        <div className="graph-buttons">
           <button 
             className={`ui button ${setColour('speed')}`}
             onClick={e => setDisplay('speed')}>
@@ -114,7 +114,7 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
         break;
     };
 
-    const dates = [fetchedSessions[0].unix, fetchedSessions[fetchedSessions.length -1].unix];
+    const tickDates = [fetchedSessions[0].unix, fetchedSessions[fetchedSessions.length -1].unix];
 
     const toolTipContent = ({active, payload, label}) => {
       if (active && payload.length) {
@@ -144,7 +144,7 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
             scale="time" 
             domain={['auto', 'auto']}
             tickFormatter={unix => unixToDate(unix)}
-            ticks={[dates[0], dates[1]]}
+            ticks={[tickDates[0], tickDates[1]]}
             interval="preserveStartEnd"
             type="number"
             dy={30}
@@ -191,7 +191,6 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
       <div>Loading</div>
     )
   } else {
-    console.log(fetchedSessions);
     return (
       <div>
         {renderGraph(display)}
