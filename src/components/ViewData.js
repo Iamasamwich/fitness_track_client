@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip} from 'recharts';
+import {ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend} from 'recharts';
 
 import {getMonthSessions, getAllSessions} from '../actions';
 
@@ -37,7 +37,7 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
     };
 
     return (
-      <div className="graph-bottom" style={{height: "150px", backgroundColor: '#ddd'}}>
+      <div className="graph-bottom">
         <div className="graph-buttons">
           <button 
             className={`ui button ${setColour('speed')}`}
@@ -75,7 +75,12 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
     );
   };
 
+  const dotClicked = (a,{payload}) => {
+    console.log(payload);
+  };
+
   const renderGraph = (display) => {
+
     let right;
     const time = {
       dataKey: "time", 
@@ -160,6 +165,7 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
             interval="preserveStartEnd"
             label={{value: 'Distance (km)', angle: -90, position: 'left', fill: 'rgba(0, 0, 255, 1)'}} />
           <Line
+            activeDot={{onClick: dotClicked}}
             dataKey="distance"
             yAxisId="left"
             type="monotone"

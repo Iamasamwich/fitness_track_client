@@ -1,20 +1,9 @@
-/* delete these when done styling... */
-/* .navbar {
-  background: palegreen;
-}
-
-.container {
-  background: pink;
-} */
-
-
 .navbar {
   width: 100%;
   height: 40px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  /* flex-direction: row-reverse; */
   z-index: 100;
 }
 
@@ -70,7 +59,6 @@ p.fakeLink:hover {
 
 .graph-bottom {
   height: calc(100% - 450px - 40px);
-  background-color: #ddd;
 }
 
 .graph-bottom > div {
