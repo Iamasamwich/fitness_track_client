@@ -1,7 +1,7 @@
 import api from '../apis';
 
 export const ping = () => async dispatch => {
-  const res = await fetch(api.url + '/',
+  const res = await fetch(api.url + '/ping',
     {...api.options, method: 'GET'}
   ).then(resp => resp.json());
   if (res.status === 200 && res.message === 'ok'){
