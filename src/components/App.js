@@ -5,15 +5,13 @@ import NavBar from './NavBar';
 import LogIn from './LogIn';
 import SignUp from './SignUp';
 import Choice from './Choice';
+import PlaceHolder from './PlaceHolder';
 import CreateSession from './CreateSession';
 import ViewData from './ViewData';
-
-
 
 const App = ({login, page, ping}) => {
 
   useEffect(()=> {
-    console.log('pinging');
     ping();
   }, [ping]);
 
@@ -28,10 +26,14 @@ const App = ({login, page, ping}) => {
 
   const logged = () => {
     switch (page) {
+      case 'home':
+        return <Choice />;
       case 'createSession':
         return <CreateSession />;
       case 'viewData':
         return <ViewData />;
+      case 'placeHolder':
+        return <PlaceHolder />
       default: 
         return <Choice />;
     }

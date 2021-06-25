@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend} from 'recharts';
 
-import {getMonthSessions, getAllSessions} from '../actions';
+import {getMonthSessions, getAllSessions, logout} from '../actions';
 
 const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
 
@@ -197,6 +197,7 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
       <div>Loading</div>
     )
   } else {
+    console.log(fetchedSessions);
     return (
       <div>
         {renderGraph(display)}

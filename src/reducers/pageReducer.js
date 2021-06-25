@@ -1,4 +1,4 @@
-const pageReducer = (state = 'login', action) => {
+const pageReducer = (state = 'placeHolder', action) => {
   switch (action.type) {
     case "CHANGE_PAGE":
       return action.payload;
