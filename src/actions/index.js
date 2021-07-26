@@ -1,3 +1,4 @@
+import { logRoles } from '@testing-library/react';
 import api from '../apis';
 
 export const ping = () => async dispatch => {
@@ -67,10 +68,17 @@ export const getMonthSessions = () => async dispatch => {
   const res = await fetch(api.url + '/getMonthSessions', 
     {...api.options, method: 'GET'}
   )
+  .then(res => {
+    console.log(res);
+    return res;
+  })
   .then(res => res.json());
   if (res.status === 200) {
     dispatch({type: 'SET_SESSIONS', payload: res.sessions});
   };
+  if (res.status === 404) {
+    dispatch({type: 'SET_SESSIONS', payload: []});
+  }
 };
 
 export const getAllSessions = () => async dispatch => {
@@ -78,9 +86,16 @@ export const getAllSessions = () => async dispatch => {
   const res = await fetch(api.url + '/getAllSessions',
     {...api.options, method: 'GET'}
   )
+  .then(res => {
+    console.log(res);
+    return res;
+  })
   .then(res => res.json());
   if (res.status === 200) {
     dispatch({type: 'SET_SESSIONS', payload: res.sessions});
+  };
+  if (res.status === 404) {
+    dispatch({type: 'SET_SESSIONS', payload: []});
   };
 };
 

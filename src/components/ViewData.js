@@ -2,9 +2,9 @@ import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend} from 'recharts';
 
-import {getMonthSessions, getAllSessions, logout} from '../actions';
+import {getMonthSessions, getAllSessions, changePage} from '../actions';
 
-const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
+const ViewData = ({sessions, getMonthSessions, getAllSessions, changePage}) => {
 
   const [fetchedSessions, setFetchedSessions] = useState([]);
   const [display, setDisplay] = useState('speed');
@@ -29,6 +29,16 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
     const d = new Date(unix);
     const arr = [d.getDate(), d.getMonth() + 1, d.getFullYear()];
     return arr.join('-');
+  };
+
+  const msToHM = (time) => {
+    const h = Math.floor(time/3600);
+    const m = Math.floor((time - (h * 3600)) / 60);
+    return `${h}h ${m}m`;
+  };
+
+  const dotClicked = (a,{payload}) => {
+    console.log(payload);
   };
 
   const renderButtons = () => {
@@ -75,21 +85,14 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
     );
   };
 
-  const dotClicked = (a,{payload}) => {
-    console.log(payload);
-  };
-
   const renderGraph = (display) => {
-
     let right;
     const time = {
       dataKey: "time", 
       label: "Time (s)",
       tickCount: 3,
       tickFormatter: (time) => {
-        const h = Math.floor(time / 3600);
-        const m = Math.floor((time - (h * 3600)) / 60);
-        return `${h}h ${m}m`;
+        return msToHM(time);
       }
     };
     const speed = {
@@ -128,7 +131,7 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
           <div className="custom-tooltip">
             <p className="label">{`Date: ${unixToDate(data.unix)}`}</p>
             <p className="desc">{`Distance: ${data.distance}km`}</p>
-            <p className="desc">Time: 1h 14m 23s</p>
+            <p className="desc">{msToHM(data.time)}</p>
             <p className="desc">{`Avg. Speed: ${data.speed}km/h`}</p>
             <p className="desc">{`Route: ${data.route}`}</p>
           </div>
@@ -194,10 +197,30 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions}) => {
 
   if (fetchedSessions.length === 0) {
     return (
-      <div>Loading</div>
+      <div className="ui container">
+        <div className="ui active inverted dimmer">
+          <div className="ui text loader">
+            <p>Loading<br /><br />There might not be any sessions...
+              <br />
+              <span 
+                className="fakeLink"
+                onClick={() => changePage("createSession")}>
+                  try adding some
+              </span>
+              <br />
+               or 
+              <br />
+              <span
+                className="fakeLink"
+                onClick={() => setPeriod("all")}>
+                  get all session data
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
     )
   } else {
-    console.log(fetchedSessions);
     return (
       <div>
         {renderGraph(display)}
@@ -213,4 +236,4 @@ const mapStateToProps = ({sessions}) => {
   }
 };
 
-export default connect(mapStateToProps, {getMonthSessions, getAllSessions})(ViewData);
+export default connect(mapStateToProps, {getMonthSessions, getAllSessions, changePage})(ViewData);

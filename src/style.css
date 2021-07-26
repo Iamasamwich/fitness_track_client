@@ -29,10 +29,10 @@
 }
 
 
-p.fakeLink {
+.fakeLink {
   color: blue;
 }
-p.fakeLink:hover {
+.fakeLink:hover {
   cursor:pointer;
   text-decoration: underline;
   align-items: center;
@@ -65,4 +65,8 @@ p.fakeLink:hover {
   padding-top: 20px;
   display: flex;
   justify-content: space-around;
+}
+
+.loader {
+  height: 500px;
 }
