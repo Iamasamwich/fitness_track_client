@@ -1,4 +1,3 @@
-import { logRoles } from '@testing-library/react';
 import api from '../apis';
 
 export const ping = () => async dispatch => {

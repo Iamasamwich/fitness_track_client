@@ -44,7 +44,6 @@ const CreateSession = ({changePage, createSession}) => {
     if (!isNaN(distance) && distance > 0 && re.test(distance)) {
       setDistanceError('');
     } else {
-      console.log(typeof(distance));
       setDistanceError('error');
     };
   }, [distance]);

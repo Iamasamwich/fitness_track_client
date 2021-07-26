@@ -3,14 +3,16 @@ import {connect} from 'react-redux';
 import {ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend} from 'recharts';
 
 import {getMonthSessions, getAllSessions, changePage} from '../actions';
+import ViewDataLoading from './ViewDataLoading';
 
-const ViewData = ({sessions, getMonthSessions, getAllSessions, changePage}) => {
+const ViewData = ({sessions, appStatus, getMonthSessions, getAllSessions, changePage}) => {
 
   const [fetchedSessions, setFetchedSessions] = useState([]);
   const [display, setDisplay] = useState('speed');
   const [period, setPeriod] = useState('month');
 
   useEffect(() => {
+    console.log(period);
     if (period === 'month') {
       getMonthSessions();
     } else {
@@ -197,29 +199,11 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions, changePage}) => {
 
   if (fetchedSessions.length === 0) {
     return (
-      <div className="ui container">
-        <div className="ui active inverted dimmer">
-          <div className="ui text loader">
-            <p>Loading<br /><br />There might not be any sessions...
-              <br />
-              <span 
-                className="fakeLink"
-                onClick={() => changePage("createSession")}>
-                  try adding some
-              </span>
-              <br />
-               or 
-              <br />
-              <span
-                className="fakeLink"
-                onClick={() => setPeriod("all")}>
-                  get all session data
-              </span>
-            </p>
-          </div>
-        </div>
-      </div>
-    )
+      <ViewDataLoading
+        changePeriod={(period) => setPeriod(period)}
+      />
+    );
+    
   } else {
     return (
       <div>
@@ -230,9 +214,10 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions, changePage}) => {
   }
 };
 
-const mapStateToProps = ({sessions}) => {
+const mapStateToProps = ({sessions, appStatus}) => {
   return {
-    sessions
+    sessions,
+    appStatus
   }
 };
 
