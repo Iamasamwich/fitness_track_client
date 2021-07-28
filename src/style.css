@@ -70,3 +70,17 @@
 .loader {
   height: 500px;
 }
+
+.status {
+  position: absolute;
+  width: 100vw;
+}
+
+.status > div {
+  height: calc(100vh - 40px);
+}
+
+.status-spinner {
+  background-color: rgba(240,240,240,1) !important;
+  padding: 0 !important;
+}

@@ -19,7 +19,10 @@ const ViewDataLoading = ({changePeriod, changePage}) => {
             <br />
             <span
               className="fakeLink"
-              onClick={() => changePeriod("all")}>
+              onClick={() => {
+                console.log('changing period for some reason...');
+                changePeriod("all")}
+              }>
                 get all session data
             </span>
           </p>

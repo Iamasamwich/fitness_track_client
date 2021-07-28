@@ -5,20 +5,21 @@ import {ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Toolt
 import {getMonthSessions, getAllSessions, changePage} from '../actions';
 import ViewDataLoading from './ViewDataLoading';
 
-const ViewData = ({sessions, appStatus, getMonthSessions, getAllSessions, changePage}) => {
+const ViewData = ({sessions, getMonthSessions, getAllSessions, changePage}) => {
 
   const [fetchedSessions, setFetchedSessions] = useState([]);
   const [display, setDisplay] = useState('speed');
   const [period, setPeriod] = useState('month');
 
   useEffect(() => {
+    console.log('changing period....');
     console.log(period);
     if (period === 'month') {
       getMonthSessions();
     } else {
       getAllSessions();
     };
-  }, [getAllSessions, getMonthSessions, period]);
+  }, [getMonthSessions, getAllSessions, period]);
 
   useEffect(() => {
     sessions.forEach(session => {
@@ -41,50 +42,6 @@ const ViewData = ({sessions, appStatus, getMonthSessions, getAllSessions, change
 
   const dotClicked = (a,{payload}) => {
     console.log(payload);
-  };
-
-  const renderButtons = () => {
-    const setColour = (disp) => {
-      return disp === display ? "blue" : "green";
-    };
-
-    return (
-      <div className="graph-bottom">
-        <div className="graph-buttons">
-          <button 
-            className={`ui button ${setColour('speed')}`}
-            onClick={e => setDisplay('speed')}>
-            Speed
-          </button>
-          <button 
-            className={`ui button ${setColour('time')}`}
-            onClick={e => setDisplay('time')}>
-            Time
-          </button>
-          <button
-            className={`ui button ${setColour('weight')}`}
-            onClick={e => setDisplay('weight')}>
-            Weight
-          </button>
-        </div>
-        <div>
-          {
-            period === 'month' ?
-            <button
-              className="ui button green"
-              onClick={()=> setPeriod('all')}>
-              Show All
-            </button>
-            :
-            <button
-            className="ui button green"
-            onClick={() => setPeriod('month')}>
-              Show 30 days
-            </button>
-          }
-        </div>
-      </div>
-    );
   };
 
   const renderGraph = (display) => {
@@ -197,12 +154,57 @@ const ViewData = ({sessions, appStatus, getMonthSessions, getAllSessions, change
     );
   };
 
-  if (fetchedSessions.length === 0) {
+  const renderButtons = () => {
+    const setColour = (disp) => {
+      return disp === display ? "blue" : "green";
+    };
+
     return (
-      <ViewDataLoading
-        changePeriod={(period) => setPeriod(period)}
-      />
+      <div className="graph-bottom">
+        <div className="graph-buttons">
+          <button 
+            className={`ui button ${setColour('speed')}`}
+            onClick={e => setDisplay('speed')}>
+            Speed
+          </button>
+          <button 
+            className={`ui button ${setColour('time')}`}
+            onClick={e => setDisplay('time')}>
+            Time
+          </button>
+          <button
+            className={`ui button ${setColour('weight')}`}
+            onClick={e => setDisplay('weight')}>
+            Weight
+          </button>
+        </div>
+        <div>
+          {
+            period === 'month' ?
+            <button
+              className="ui button green"
+              onClick={()=> setPeriod('all')}>
+              Show All
+            </button>
+            :
+            <button
+            className="ui button green"
+            onClick={() => setPeriod('month')}>
+              Show 30 days
+            </button>
+          }
+        </div>
+      </div>
     );
+  };
+
+  if (fetchedSessions.length === 0) {
+    return null;
+    //  (
+    //   <ViewDataLoading
+    //     changePeriod={(period)}
+    //   />
+    // );
     
   } else {
     return (
@@ -214,10 +216,9 @@ const ViewData = ({sessions, appStatus, getMonthSessions, getAllSessions, change
   }
 };
 
-const mapStateToProps = ({sessions, appStatus}) => {
+const mapStateToProps = ({sessions}) => {
   return {
-    sessions,
-    appStatus
+    sessions
   }
 };
 

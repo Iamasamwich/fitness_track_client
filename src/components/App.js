@@ -8,8 +8,11 @@ import Choice from './Choice';
 import PlaceHolder from './PlaceHolder';
 import CreateSession from './CreateSession';
 import ViewData from './ViewData';
+import Status from './Status';
 
-const App = ({login, page, ping}) => {
+const App = ({login, page, appStatus, ping}) => {
+
+  console.log(appStatus);
 
   useEffect(()=> {
     ping();
@@ -42,19 +45,24 @@ const App = ({login, page, ping}) => {
   return (
     <Fragment>
       <NavBar />
+      {appStatus !== null ?
+        <Status /> :
+        null
+      }
       {!login ?
-        unlogged() :
-        logged()
+          unlogged() :
+          logged()
       }
     </Fragment>
   );
 
 };
 
-const mapStateToProps = ({login, page}) => {
+const mapStateToProps = ({login, page, appStatus}) => {
   return {
     login,
-    page
+    page,
+    appStatus
   }
 }
 
