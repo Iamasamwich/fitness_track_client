@@ -1,19 +1,16 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend} from 'recharts';
+import {ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip} from 'recharts';
 
 import {getMonthSessions, getAllSessions, changePage} from '../actions';
-import ViewDataLoading from './ViewDataLoading';
 
-const ViewData = ({sessions, getMonthSessions, getAllSessions, changePage}) => {
+const ViewData = ({sessions, getMonthSessions, getAllSessions, fetchAll, changePage}) => {
 
   const [fetchedSessions, setFetchedSessions] = useState([]);
   const [display, setDisplay] = useState('speed');
   const [period, setPeriod] = useState('month');
 
   useEffect(() => {
-    console.log('changing period....');
-    console.log(period);
     if (period === 'month') {
       getMonthSessions();
     } else {
@@ -22,9 +19,17 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions, changePage}) => {
   }, [getMonthSessions, getAllSessions, period]);
 
   useEffect(() => {
-    sessions.forEach(session => {
-      session.unix = new Date(session.date).getTime();
-    });
+    if (fetchAll === true) {
+      setPeriod('all');
+    }
+  }, [fetchAll]);
+
+  useEffect(() => {
+    if (sessions) {
+      sessions.forEach(session => {
+        session.unix = new Date(session.date).getTime();
+      });
+    };
     setFetchedSessions(sessions);
   }, [sessions])
 
@@ -198,14 +203,8 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions, changePage}) => {
     );
   };
 
-  if (fetchedSessions.length === 0) {
+  if (!fetchedSessions || fetchedSessions.length === 0) {
     return null;
-    //  (
-    //   <ViewDataLoading
-    //     changePeriod={(period)}
-    //   />
-    // );
-    
   } else {
     return (
       <div>
@@ -216,9 +215,10 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions, changePage}) => {
   }
 };
 
-const mapStateToProps = ({sessions}) => {
+const mapStateToProps = ({sessions, fetchAll}) => {
   return {
-    sessions
+    sessions,
+    fetchAll
   }
 };
 

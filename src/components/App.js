@@ -12,8 +12,6 @@ import Status from './Status';
 
 const App = ({login, page, appStatus, ping}) => {
 
-  console.log(appStatus);
-
   useEffect(()=> {
     ping();
   }, [ping]);

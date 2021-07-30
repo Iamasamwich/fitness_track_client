@@ -78,9 +78,21 @@
 
 .status > div {
   height: calc(100vh - 40px);
+  background-color: rgba(240, 240, 240, 1) !important;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  z-index: 500;
+}
+
+.status-field {
+  margin: 20px;
+  text-align: center;
 }
 
 .status-spinner {
   background-color: rgba(240,240,240,1) !important;
   padding: 0 !important;
 }
+

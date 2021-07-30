@@ -1,33 +1,26 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import Loading from './status/Loading';
+import FourOhFour from './status/FourOhFour';
+import DefaultStatus from './status/DefaultStatus';
 
 
-const Status = ({appStatus}) => {
-
-  const Loading = () => {
-    return (
-      <div className="container status">
-        <div className="ui segment">
-          <div className="ui active inverted dimmer status-spinner">
-            <div className="ui text loader">Loading....</div>
-          </div>
-          <p></p>
-        </div>
-      </div>
-    );
-  };
+const Status = ({appStatus, page}) => {
 
   switch (appStatus) {
     case "loading":
       return <Loading />
+    case 404:
+      return <FourOhFour page={page} />
     default:
-      return <Loading />
+      return <DefaultStatus status={appStatus} />
   };
 };
 
-const mapStateToProps = ({appStatus}) => {
+const mapStateToProps = ({appStatus, page}) => {
   return {
-    appStatus
+    appStatus,
+    page
   };
 };
 

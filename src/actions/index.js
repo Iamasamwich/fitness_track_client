@@ -31,11 +31,13 @@ export const login = (body) => async dispatch => {
     dispatch({type: 'APPSTATUS', payload: null})
     dispatch({type: 'LOGIN', payload: true});
   } else {
+    dispatch({type: 'APPSTATUS', payload: res.status});
     dispatch ({type: 'LOGIN', payload: false});
   };
 };
 
 export const changePage = (page) => dispatch => {
+  dispatch({type: 'APPSTATUS', payload: null});
   dispatch({type: 'CHANGE_PAGE', payload: page});
 };
 
@@ -49,10 +51,14 @@ export const signUp = (body) => async dispatch => {
   if (res.status === 201 && res.message === 'User Added') {
     dispatch({type: 'APPSTATUS', payload: null})
     dispatch({type: 'LOGIN', payload: true});
-  } else {
-    dispatch({type: 'APPSTATUS', payload: null})
+  } else if (res.status === 409) {
+    dispatch({type: 'APPSTATUS', payload: res.status});
+    dispatch({type: 'CHANGE_PAGE', payload: 'home'});
     dispatch({type: 'LOGIN', payload: false});
-    dispatch({type: 'CHANGE_PAGE', payload: 'signup'});
+  } else {
+    dispatch({type: 'APPSTATUS', payload: res.status})
+    dispatch({type: 'LOGIN', payload: false});
+    // dispatch({type: 'CHANGE_PAGE', payload: 'home'});
   };
 };
 
@@ -65,9 +71,10 @@ export const createSession = (body) => async dispatch => {
   .then(res => res.json());
   if (res.status === 201) {
     dispatch({type: 'APPSTATUS', payload: null});
-    dispatch({type: 'CHANGE_PAGE', payload: login});
+    dispatch({type: 'CHANGE_PAGE', payload: 'home'});
   } else {
     dispatch({type: 'APPSTATUS', payload: res.status});
+    dispatch({type: 'CHANGE_PAGE', payload: 'home'});
   };
 };
 
@@ -78,19 +85,23 @@ export const getMonthSessions = () => async dispatch => {
     {...api.options, method: 'GET'}
   )
   .then(res => res.json());
+
+  console.log(res);
   if (res.status === 200) {
     dispatch({type: 'APPSTATUS', payload: null});
     dispatch({type: 'SET_SESSIONS', payload: res.sessions});
   };
   if (res.status === 404) {
-    dispatch({type: 'SET_SESSIONS', payload: []});
+    console.log('got a 404 back...');
+    dispatch({type: 'APPSTATUS', payload: res.status});
+    dispatch({type: 'SET_SESSIONS', payload: null});
   }
 };
 
 export const getAllSessions = () => async dispatch => {
   dispatch({type: 'APPSTATUS', payload: 'loading'});  
+  dispatch({type: 'FETCHCHANGE', payload: false});
 
-  console.log('actions/getAllSessions running');
   const res = await fetch(api.url + '/getAllSessions',
     {...api.options, method: 'GET'}
   )
@@ -98,10 +109,18 @@ export const getAllSessions = () => async dispatch => {
   if (res.status === 200) {
     dispatch({type: 'APPSTATUS', payload: null});
     dispatch({type: 'SET_SESSIONS', payload: res.sessions});
-  };
-  if (res.status === 404) {
-    dispatch({type: 'SET_SESSIONS', payload: []});
+  } else {
+    dispatch({type: 'APPSTATUS', payload: res.status});
+    dispatch({type: 'SET_SESSIONS', payload: null});
   };
 };
+
+export const fetchChange = (bool) => dispatch => {
+  dispatch({type: 'FETCHCHANGE', payload: bool});
+};
+
+export const clearError = () => dispatch => {
+  dispatch({type: 'APPSTATUS', payload: null});
+}
 
 
