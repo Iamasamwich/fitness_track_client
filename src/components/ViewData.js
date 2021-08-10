@@ -207,7 +207,7 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions, fetchAll, changeP
     return null;
   } else {
     return (
-      <div>
+      <div className="ui container">
         {renderGraph(display)}
         {renderButtons()}
       </div>
