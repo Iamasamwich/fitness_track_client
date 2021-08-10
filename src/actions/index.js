@@ -90,12 +90,16 @@ export const getMonthSessions = () => async dispatch => {
   if (res.status === 200) {
     dispatch({type: 'APPSTATUS', payload: null});
     dispatch({type: 'SET_SESSIONS', payload: res.sessions});
-  };
-  if (res.status === 404) {
+  } else if (res.status === 404) {
     console.log('got a 404 back...');
     dispatch({type: 'APPSTATUS', payload: res.status});
     dispatch({type: 'SET_SESSIONS', payload: null});
-  }
+  } else {
+    dispatch({type: 'APPSTATUS', payload: res.status});
+    dispatch({type: 'SET_SESSIONS', payload: null});
+  };
+  
+
 };
 
 export const getAllSessions = () => async dispatch => {

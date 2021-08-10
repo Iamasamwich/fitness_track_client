@@ -139,6 +139,7 @@ const CreateSession = ({changePage, createSession}) => {
           <div className={`field ${distanceError}`}>
             <label>Distance (km.mmm)</label>
             <input
+              type="number"
               placeholder="km.mm"
               value={distance}
               onChange={e => setDistance(e.target.value)} />
@@ -172,6 +173,7 @@ const CreateSession = ({changePage, createSession}) => {
           <div className={`field ${weightError}`}>
             <label>Weight (kg)</label>
             <input
+              type="number"
               placeholder="kg"
               value={weight}
               onChange={e => setWeight(e.target.value)} />

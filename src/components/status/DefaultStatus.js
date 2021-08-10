@@ -1,13 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {clearError} from '../../actions';
+import {clearError, changePage} from '../../actions';
 
-const DefaultStatus = ({clearError, status}) => {
+const DefaultStatus = ({clearError, changePage, status}) => {
 
   console.log(status);
 
   const containerClicked = e => {
     e.preventDefault();
+    changePage('home');
     clearError();
   };
 
@@ -27,9 +28,7 @@ const DefaultStatus = ({clearError, status}) => {
   };
 
   return (
-    <div className="container status"
-      onClick={containerClicked}
-    >
+    <div className="container status" onClick={containerClicked}>
       <div className="ui segment">
         <div className="status-field">
           <h2>Womp womp!</h2>
@@ -45,4 +44,4 @@ const DefaultStatus = ({clearError, status}) => {
   );
 };
 
-export default connect(null, {clearError})(DefaultStatus);
+export default connect(null, {clearError, changePage})(DefaultStatus);

@@ -96,3 +96,188 @@
   padding: 0 !important;
 }
 
+#loading {
+  height: 350px;
+  width: 800px;
+  position: relative;
+  transform: scale(.3);
+}
+
+#loading-pump {
+  position: absolute;
+  top: 230px;
+  left: 60px;
+}
+
+#loading-body {
+  position: relative;
+  z-index: 5;
+  top: 0;
+  left: 40px;
+  height: 300px;
+  width: 100px;
+  background-color: grey;
+}
+
+#loading-handle {
+  position: absolute;
+  left: 75px;
+  height: 200px;
+  width: 30px;
+  background-color: silver;
+  animation-name: pump;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes pump {
+  0% {top: -200px;}
+  50% {top: -80px;}
+  100% {top: -200px;}
+}
+
+#loading-handle::before {
+  content: ' ';
+  position: absolute;
+  background-color: black;
+  left: -55px;
+  width: 140px;
+  height: 20px;
+}
+
+#loading-base {
+  position: relative;
+  background-color: black;
+  height: 20px;
+  width: 180px;
+}
+
+#loading-hose {
+  position: absolute;
+  z-index: 5;
+  top: 195px;
+  left: 140px;
+}
+
+#loading-wheel {
+  box-sizing: content-box;
+  position: absolute;
+  top: 120px;
+  left: 320px;
+  height: 400px;
+  width: 400px;
+  border: 20px solid black;
+  animation-name: tyre;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  border-radius: 50%;
+}
+
+@keyframes tyre {
+  from {border: 20px solid black; top: 120px; left: 320px;}
+  50% {border: 30px solid black; top: 110px; left: 310px;}
+  to {border: 20px solid black; top: 120px; left: 320px;}
+}
+
+#loading-wheel::before {
+  content: ' ';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border: 15px solid gray;
+  border-radius: 50%;
+}
+
+.loading-spokes {
+  position: absolute;
+  width: calc(100% - 12px);
+  height: 6%;
+  border: 6px solid grey;
+  top: calc(47% - 6px);
+}
+
+#loading-spokes2 {
+  transform: rotate(45deg);
+}
+
+#loading-spokes3 {
+  transform: rotate(90deg);
+}
+
+#loading-spokes4 {
+  transform: rotate(135deg);
+}
+
+.loading-leak {
+  position: absolute;
+  width: 60px;
+  height: 3px;
+  background-color: blue;
+  opacity: 0;
+  animation-name: leak;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes leak {
+  0% {opacity: 0;}
+  50% {opacity: 0;}
+  70% {opacity: 0.5;}
+  100% {opacity: 0;}
+}
+
+#loading-leak1 {
+  top: 22px;
+  left: 350px;
+  transform: rotate(135deg);
+}
+
+#loading-leak2 {
+  top: 15px;
+  left: 343px;
+  transform: rotate(125deg);
+}
+
+#loading-leak3 {
+  top: 29px;
+  left: 357px;
+  transform: rotate(145deg);
+}
+
+.loading-dot {
+  color: white;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+#loading-dot1 {
+  animation-name: dot1;
+}
+
+@keyframes dot1 {
+  24% {color: white;}
+  25% {color: black;}
+  100% {color: black;}
+}
+
+#loading-dot2 {
+  animation-name: dot2;
+}
+
+@keyframes dot2 {
+  49% {color: white;}
+  50% {color: black;}
+  100% {color: black;}
+}
+
+#loading-dot3 {
+  animation-name: dot3;
+}
+
+@keyframes dot3 {
+  74% {color: white;}
+  75% {color: black;}
+  100% {color: black;}
+}

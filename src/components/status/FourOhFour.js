@@ -14,7 +14,7 @@ const FourOhFour = ({clearError, changePage, page, fetchChange}) => {
         changePage('home');
       };
     };
-  }
+  };
 
   return (
     <div className="container status"
