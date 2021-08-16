@@ -85,7 +85,6 @@ const SignUp = ({signUp, changePage}) => {
   const formSubmit = (e) => {
     e.preventDefault();
     if (anyError) {
-      console.log('errors, bailing');
       return;
     };
     signUp({name, email, pword});

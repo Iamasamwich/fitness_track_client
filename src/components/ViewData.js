@@ -2,9 +2,9 @@ import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip} from 'recharts';
 
-import {getMonthSessions, getAllSessions, changePage} from '../actions';
+import {getMonthSessions, getAllSessions} from '../actions';
 
-const ViewData = ({sessions, getMonthSessions, getAllSessions, fetchAll, changePage}) => {
+const ViewData = ({sessions, getMonthSessions, getAllSessions, fetchAll}) => {
 
   const [fetchedSessions, setFetchedSessions] = useState([]);
   const [display, setDisplay] = useState('speed');
@@ -43,10 +43,6 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions, fetchAll, changeP
     const h = Math.floor(time/3600);
     const m = Math.floor((time - (h * 3600)) / 60);
     return `${h}h ${m}m`;
-  };
-
-  const dotClicked = (a,{payload}) => {
-    console.log(payload);
   };
 
   const renderGraph = (display) => {
@@ -132,7 +128,6 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions, fetchAll, changeP
             interval="preserveStartEnd"
             label={{value: 'Distance (km)', angle: -90, position: 'left', fill: 'rgba(0, 0, 255, 1)'}} />
           <Line
-            activeDot={{onClick: dotClicked}}
             dataKey="distance"
             yAxisId="left"
             type="monotone"
@@ -222,4 +217,4 @@ const mapStateToProps = ({sessions, fetchAll}) => {
   }
 };
 
-export default connect(mapStateToProps, {getMonthSessions, getAllSessions, changePage})(ViewData);
+export default connect(mapStateToProps, {getMonthSessions, getAllSessions})(ViewData);

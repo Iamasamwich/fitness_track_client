@@ -4,8 +4,6 @@ import {clearError, changePage} from '../../actions';
 
 const DefaultStatus = ({clearError, changePage, status}) => {
 
-  console.log(status);
-
   const containerClicked = e => {
     e.preventDefault();
     changePage('home');

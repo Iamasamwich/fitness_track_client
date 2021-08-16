@@ -25,8 +25,6 @@ const CreateSession = ({changePage, createSession}) => {
   const [weightError, setWeightError] = useState('');
   const [route, setRoute] = useState('');
   const [routeError, setRouteError] = useState('');
-  const [notes, setNotes] = useState('');
-  const [notesError, setNotesError] = useState('');
 
   const [anyError, setAnyError] = useState(false);
 
@@ -52,12 +50,29 @@ const CreateSession = ({changePage, createSession}) => {
     if (
         (!isNaN(hours) || !isNaN(mins) || !isNaN(secs)) &&
         (Number(hours) >= 0 && Number(mins) >= 0 && Number(secs) >= 0) && 
-        ((Number(hours) + Number(mins) + Number(secs)) > 0)
+        ((Number(hours) + Number(mins) + Number(secs)) > 0) &&
+        (Number(hours) % 1 === 0) &&
+        (Number(mins) % 1 === 0) &&
+        (Number(secs) %1 === 0)
       ) {
+
+        if (Number(mins) > 59) {
+          const newMins = Number(mins) % 60;
+          const newHours = (Number(mins) - newMins) / 60;
+          setHours((Number(hours) + newHours).toString());
+          setMins(newMins.toString());
+        };
+
+        if (Number(secs) > 59) {
+          const newSecs = Number(secs) % 60;
+          const newMins = (Number(secs) - newSecs) / 60;
+          setMins((Number(mins) + newMins).toString());
+          setSecs(newSecs.toString());
+        };
         setTimeError('');
       } else {
         setTimeError('error');
-      }
+      };
   }, [hours, mins, secs]);
 
   useEffect(() => {
@@ -77,29 +92,19 @@ const CreateSession = ({changePage, createSession}) => {
   }, [route]);
 
   useEffect(() => {
-    if (notes.length >= 1) {
-      setNotesError('');
-    } else {
-      setNotesError('error');
-    };
-  }, [notes]);
-
-  useEffect(() => {
-    if (dateError || distanceError || timeError || weightError || routeError || notesError) {
+    if (dateError || distanceError || timeError || weightError || routeError) {
       setAnyError(true);
     } else {
       setAnyError(false);
     };
-  }, [dateError, distanceError, timeError, weightError, routeError, notesError]);
+  }, [dateError, distanceError, timeError, weightError, routeError]);
 
   const formSubmit = (e) => {
     e.preventDefault();
     if (anyError) {
-      console.log('errors, bailing...');
       return;
     };
-    console.log('form submitted');
-    createSession({date, distance, hours, mins, secs, weight, route, notes});
+    createSession({date, distance, hours, mins, secs, weight, route});
   };
 
   const showSubmit = () => {
@@ -185,14 +190,6 @@ const CreateSession = ({changePage, createSession}) => {
               placeholder="JBBL and back"
               value={route}
               onChange={e => setRoute(e.target.value)} />
-          </div>
-
-          <div className={`field ${notesError}`}>
-            <label>Session Notes</label>
-            <input
-              placeholder="Lots of magpies today...."
-              value={notes}
-              onChange={e => setNotes(e.target.value)} />
           </div>
 
           {showSubmit()}
