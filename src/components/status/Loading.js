@@ -6,21 +6,23 @@ const Loading = () => {
       <div className="ui segment">
         <div id="loading">
           <div id="loading-pump">
-            <div id='loading-body' />
-            <div id='loading-handle' />
-            <div id='loading-base' />
-            <svg id='loading-hose' width='345' height='100'>
-              <path d="M -5 5 C 100 100, 100 80, 150 70 S 300 20, 345 110" stroke="red" fill="transparent" strokeWidth="10" />
+            <div id='loading-pump-body' />
+            <div id='loading-pump-handle' />
+            <div id='loading-pump-base' />
+            <svg id='loading-pump-hose' width='345' height='100'>
+              <path d="M -5 5 C 100 100, 100 80, 150 70 S 320 20, 340 90" stroke="red" fill="transparent" strokeWidth="10" />
             </svg>
           </div>
-          <div id="loading-wheel">
-            <div className="loading-spokes" id="loading-spokes1" />
-            <div className="loading-spokes" id="loading-spokes2" />
-            <div className="loading-spokes" id="loading-spokes3" />
-            <div className="loading-spokes" id="loading-spokes4" />
-            <div className="loading-leak" id="loading-leak1" />
-            <div className="loading-leak" id="loading-leak2" />
-            <div className="loading-leak" id="loading-leak3" />
+          <div id="loading-wheel" className="wheel">
+            <div className="logo-spokes" id="logo-spokes1" />
+            <div className="logo-spokes" id="logo-spokes2" />
+            <div className="logo-spokes" id="logo-spokes3" />
+            <div className="logo-spokes" id="logo-spokes4" />
+            <div id="loading-leak">
+              <div className="loading-leak-air" id="loading-leak1" />
+              <div className="loading-leak-air" id="loading-leak2" />
+              <div className="loading-leak-air" id="loading-leak3" />
+            </div>
           </div>
         </div>
         <div className="status-field">

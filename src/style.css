@@ -100,6 +100,70 @@
   padding: 0 !important;
 }
 
+#logo-container {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+}
+
+#logo-wheel {
+  top: 50%;
+  left: 50%;
+  animation: spin 5s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
+}
+
+.wheel {
+  box-sizing: content-box;
+  height: 260px;
+  width: 260px;
+  margin: -150px 0 0 -150px;
+  border: 20px solid black;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.wheel::before {
+  content: ' ';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border: 15px solid gray;
+  border-radius: 50%;
+}
+
+.logo-spokes {
+  position: absolute;
+  border: 5px solid grey;
+  height: 20px;
+  width: 230px;
+  top: 50%;
+  left: 50%;
+  margin: -15px 0 0 -120px;
+}
+
+#logo-spokes2 {
+  transform: rotate(45deg);
+}
+
+#logo-spokes3 {
+  transform: rotate(90deg);
+}
+
+#logo-spokes4 {
+  transform: rotate(135deg);
+}
+
+
+
+
 #loading {
   height: 350px;
   width: 800px;
@@ -113,7 +177,7 @@
   left: 60px;
 }
 
-#loading-body {
+#loading-pump-body {
   position: relative;
   z-index: 5;
   top: 0;
@@ -123,7 +187,7 @@
   background-color: grey;
 }
 
-#loading-handle {
+#loading-pump-handle {
   position: absolute;
   left: 75px;
   height: 200px;
@@ -140,7 +204,7 @@
   100% {top: -200px;}
 }
 
-#loading-handle::before {
+#loading-pump-handle::before {
   content: ' ';
   position: absolute;
   background-color: black;
@@ -149,14 +213,14 @@
   height: 20px;
 }
 
-#loading-base {
+#loading-pump-base {
   position: relative;
   background-color: black;
   height: 20px;
   width: 180px;
 }
 
-#loading-hose {
+#loading-pump-hose {
   position: absolute;
   z-index: 5;
   top: 195px;
@@ -164,65 +228,32 @@
 }
 
 #loading-wheel {
-  box-sizing: content-box;
-  position: absolute;
-  top: 120px;
-  left: 320px;
-  height: 400px;
-  width: 400px;
-  border: 20px solid black;
-  animation-name: tyre;
-  animation-duration: 3s;
-  animation-iteration-count: infinite;
-  border-radius: 50%;
+  top: 390px;
+  left: 590px;
+  margin: -200px 0 0 -200px;
+  animation: tyre 3s linear infinite;
+  transform: scale(1.5);
 }
 
 @keyframes tyre {
-  from {border: 20px solid black; top: 120px; left: 320px;}
-  50% {border: 30px solid black; top: 110px; left: 310px;}
-  to {border: 20px solid black; top: 120px; left: 320px;}
+  from {border: 20px solid black; top: 390px; left: 590px;}
+  50% {border: 30px solid black; top: 370px; left: 580px;}
+  to {border: 20px solid black; top: 390px; left: 590px;}
 }
 
-#loading-wheel::before {
-  content: ' ';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  border: 15px solid gray;
-  border-radius: 50%;
+#loading-leak {
+  width: 60px;
+  height: 60px;
+  position: relative;
+  left: 230px;
 }
 
-.loading-spokes {
-  position: absolute;
-  width: calc(100% - 12px);
-  height: 6%;
-  border: 6px solid grey;
-  top: calc(47% - 6px);
-}
-
-#loading-spokes2 {
-  transform: rotate(45deg);
-}
-
-#loading-spokes3 {
-  transform: rotate(90deg);
-}
-
-#loading-spokes4 {
-  transform: rotate(135deg);
-}
-
-.loading-leak {
+.loading-leak-air {
   position: absolute;
   width: 60px;
   height: 3px;
   background-color: blue;
-  opacity: 0;
-  animation-name: leak;
-  animation-duration: 3s;
-  animation-iteration-count: infinite;
+  animation: leak 3s linear infinite;
 }
 
 @keyframes leak {
@@ -233,21 +264,19 @@
 }
 
 #loading-leak1 {
-  top: 22px;
-  left: 350px;
-  transform: rotate(135deg);
+  transform: rotate(125deg);
+  top: -6px;
+  left: -6px;
 }
 
 #loading-leak2 {
-  top: 15px;
-  left: 343px;
-  transform: rotate(125deg);
+  transform: rotate(135deg);
 }
 
 #loading-leak3 {
-  top: 29px;
-  left: 357px;
   transform: rotate(145deg);
+  top: 6px;
+  left: 6px;
 }
 
 .loading-dot {

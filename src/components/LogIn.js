@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {login, changePage} from '../actions';
+import Logo from './Logo';
 
 const LogIn = ({login, changePage}) => {
 
@@ -48,6 +49,9 @@ const LogIn = ({login, changePage}) => {
   
   return (
     <div className='ui container'>
+      <Logo />
+
+
       <form 
         className='ui form'
         onSubmit={onSubmit}
@@ -85,7 +89,6 @@ const LogIn = ({login, changePage}) => {
           Create an account
         </p>
       </div>
-      
     </div>
   );
 };
