@@ -35,7 +35,7 @@ const DefaultStatus = ({clearError, changePage, status}) => {
           <h2>{showError()}</h2>
         </div>
         <div className="status-field">
-          <p>*touch anywhere else to dismiss...*</p>
+          <p>*touch anywhere to dismiss...*</p>
         </div>
       </div>
     </div>

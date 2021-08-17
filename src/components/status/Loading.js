@@ -31,6 +31,7 @@ const Loading = () => {
             <span className="loading-dot" id="loading-dot2">.</span>
             <span className="loading-dot" id="loading-dot3">.</span>
           </h2>
+          <h4>This might take a few seconds for the server to start...</h4>
         </div>
       </div>
     </div>
