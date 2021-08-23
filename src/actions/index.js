@@ -59,9 +59,10 @@ export const changePage = (page) => dispatch => {
 };
 
 export const signUp = (body) => async dispatch => {
+  const newBody = {...body, tandc: '1.0'};
   dispatch({type: 'APPSTATUS', payload: 'loading'})
   await fetch(api.url + '/signup', 
-    {...api.options, method: 'POST', body: JSON.stringify(body)}
+    {...api.options, method: 'POST', body: JSON.stringify(newBody)}
   )
   .then(res => res.json())
   .then(res => {

@@ -362,3 +362,25 @@ h1, h2 {
   font-size: 47px;
   height: 60px;
 }
+
+.tandc-popup {
+  width: 100%;
+  height: 100%;
+  background: rgba(240, 240, 240, 0.8);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.tandc-contents {
+  width: 90vw;
+  height: 90vh;
+  background: white;
+  margin: 10px auto;
+  overflow-y: scroll;
+}
+
+.tandc-contents > button {
+  background-color: greenyellow;
+}

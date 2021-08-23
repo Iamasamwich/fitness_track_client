@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {signUp, changePage} from '../actions';
+import TermsAndConditions from './TermsAndConditions';
 
 const SignUp = ({signUp, changePage}) => {
 
@@ -12,7 +13,10 @@ const SignUp = ({signUp, changePage}) => {
   const [pwordError, setPwordError] = useState('');
   const [confPword, setConfPword] = useState('');
   const [confPwordError, setConfPwordError] = useState('');
+  const [tandc, setTandc] = useState(false);
+  const [tandcError, setTandcError] = useState('');
   const [anyError, setAnyError] = useState(false);
+  const [viewTerms, setViewTerms] = useState(false);
 
   useEffect(() => {
     if (name) {
@@ -45,15 +49,21 @@ const SignUp = ({signUp, changePage}) => {
     };
   }, [pword, confPword]);
 
-
+  useEffect(() => {
+    if (tandc === true) {
+      setTandcError('');
+    } else {
+      setTandcError('error');
+    }
+  }, [tandc]);
 
   useEffect(() => {
-    if (nameError || emailError || pwordError || confPwordError) {
+    if (nameError || emailError || pwordError || confPwordError || tandcError) {
       setAnyError(true)
     } else {
       setAnyError(false);
     };
-  }, [nameError, emailError, pwordError, confPwordError]);
+  }, [nameError, emailError, pwordError, confPwordError, tandcError]);
 
   const showConf = () => {
     return !pwordError
@@ -69,6 +79,21 @@ const SignUp = ({signUp, changePage}) => {
         )
       : null;
   };
+
+  const showTandc = () => {
+    return (!nameError && !emailError && !pwordError && !confPwordError) ?
+      <div className={`inline field ${tandcError}`}>
+        <div className="ui checkbox">
+          <input 
+            type="checkbox"
+            checked={tandc}
+            onChange={e => {setTandc(!tandc)}} />
+          <label>I have read and agree to the <span className="fakeLink" onClick={() => setViewTerms(true)}>Terms And Conditions</span></label>
+        </div>
+      </div>
+    :
+    null;
+  }
 
   const showSubmit = () => {
     return !anyError
@@ -90,8 +115,18 @@ const SignUp = ({signUp, changePage}) => {
     signUp({name, email, pword});
   }
 
+  const tandcClicked = (bool) => {
+    if (bool === true) {
+      setTandc(true);
+    };
+    setViewTerms(false);
+  };
+
   return (
     <div className="ui container">
+
+      {viewTerms ? <TermsAndConditions readTandC={(bool) => tandcClicked(bool)} /> : null}
+
       <form 
         className="ui form"
         onSubmit={formSubmit}>
@@ -124,6 +159,8 @@ const SignUp = ({signUp, changePage}) => {
         </div>
 
         {showConf()}
+
+        {showTandc()}
 
         {showSubmit()}
 
