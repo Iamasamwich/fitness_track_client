@@ -5,9 +5,9 @@ import Logo from './Logo';
 
 const LogIn = ({login, changePage}) => {
 
-  const [email, setEmail] = useState('sam@sam.com');
+  const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
-  const [pword, setPword] = useState('password');
+  const [pword, setPword] = useState('');
   const [pwordError, setPwordError] = useState('');
   const [anyError, setAnyError] = useState(false);
 

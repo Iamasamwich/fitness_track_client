@@ -101,7 +101,7 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions, fetchAll}) => {
     };
 
     return (
-      <ResponsiveContainer width="100%" height={425}>
+      <ResponsiveContainer width="100%" height={430}>
         <LineChart
           data={fetchedSessions}
           margin={{top: 10, right: 10, bottom: 100, left: 10}}>
@@ -116,7 +116,7 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions, fetchAll}) => {
             interval="preserveStartEnd"
             type="number"
             dy={30}
-            angle={85} 
+            angle={45} 
             padding={{left: 10, right: 10}} />
 {/* distance on left axis */}
           <YAxis
@@ -203,7 +203,7 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions, fetchAll}) => {
   } else {
     return (
       <div className="ui container data">
-        <h1>Your session data:</h1>
+        <h2>Your session data:</h2>
         {renderGraph(display)}
         {renderButtons()}
       </div>

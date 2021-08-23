@@ -5,7 +5,7 @@ import {changePage} from '../actions';
 const About = ({changePage}) => {
   return (
     <div className='ui container about'>
-      <h1>About Cycle Tracker</h1>
+      <h2>About Cycle Tracker</h2>
       <p>
         Hi there, and welcome to this app designed to track you cycling and fitness progression.
       </p>

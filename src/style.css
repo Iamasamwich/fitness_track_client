@@ -11,6 +11,7 @@
 @media only screen and (min-width: 768px){
   body {
     background-image: url("./bg.png");
+    background-repeat: repeat;
   }
   #root {
     margin: 0 auto;
@@ -83,13 +84,18 @@
 }
 
 .graph-bottom {
-  height: calc(100% - 450px - 40px);
+  height: calc(100% - 480px - 40px);
+  width: 100%;
+  margin-top: -40px;
 }
 
 .graph-bottom > div {
-  padding-top: 20px;
   display: flex;
   justify-content: space-around;
+}
+
+.graph-buttons {
+  margin-bottom: 10px;
 }
 
 .loader {
@@ -128,12 +134,7 @@
   margin: 0 auto;
 }
 
-#logo-container > h1 {
-  height: 60px;
-  margin: 0;
-  text-align: center;
-  font-size: 47px;
-}
+
 
 #logo-wheel {
   top: 58%;
@@ -340,9 +341,24 @@
   100% {color: black;}
 }
 
-.about > h1, .data > h1 {
+h1, h2 {
   text-align: center;
-  height: 60px;
+}
+
+.about > h2 {
+  height: 50px;
   font-size: 30px;
   margin-bottom: 0;
+}
+
+.data > h2 {
+  font-size: 30px;
+  height: 40px;
+  margin-bottom: 0px;
+}
+
+#logo-container > h1 {
+  margin: 0;
+  font-size: 47px;
+  height: 60px;
 }
