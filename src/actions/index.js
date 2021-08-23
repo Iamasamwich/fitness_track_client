@@ -39,7 +39,7 @@ export const login = (body) => async dispatch => {
   .then(res => res.json())
   .then(res => {
     if (res.status === 202 && res.message === 'Logged In') {
-      dispatch({type: 'APPSTATUS', payload: null})
+      // dispatch({type: 'APPSTATUS', payload: null})
       dispatch({type: 'LOGIN', payload: true});
     } else {
       dispatch({type: 'APPSTATUS', payload: res.status});

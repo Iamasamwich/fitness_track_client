@@ -80,15 +80,13 @@ const LogIn = ({login, changePage}) => {
         <button className={`ui button ${anyError ? '' : 'positive'}`} type="submit">
           Log In
         </button>
-      </form>
-
-      <div className="content">
         <p 
           className="fakeLink" 
           onClick={() => changePage('signup')}>
           Create an account
         </p>
-      </div>
+
+      </form>
     </div>
   );
 };

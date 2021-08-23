@@ -35,11 +35,14 @@ const NavBar = ({login, logout, page, changePage}) => {
         <i className="bars icon large" />
         <div 
           className={`cust_menu menu transition ${menu ? 'visible active' : ''}`}>
-          <div 
+          {login ?
+            <div 
             className="item"
             onClick={() => changePage('placeHolder')}>
-              Profile
-          </div>
+                Profile
+            </div>
+            :
+            null}
           <div 
             className="item"
             onClick={() => changePage('placeHolder')}>
