@@ -339,3 +339,10 @@
   75% {color: black;}
   100% {color: black;}
 }
+
+.about > h1, .data > h1 {
+  text-align: center;
+  height: 60px;
+  font-size: 30px;
+  margin-bottom: 0;
+}

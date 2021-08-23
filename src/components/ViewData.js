@@ -101,7 +101,7 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions, fetchAll}) => {
     };
 
     return (
-      <ResponsiveContainer width="100%" height={450}>
+      <ResponsiveContainer width="100%" height={425}>
         <LineChart
           data={fetchedSessions}
           margin={{top: 10, right: 10, bottom: 100, left: 10}}>
@@ -202,7 +202,8 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions, fetchAll}) => {
     return null;
   } else {
     return (
-      <div className="ui container">
+      <div className="ui container data">
+        <h1>Your session data:</h1>
         {renderGraph(display)}
         {renderButtons()}
       </div>

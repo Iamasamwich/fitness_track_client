@@ -5,10 +5,11 @@ import NavBar from './NavBar';
 import LogIn from './LogIn';
 import SignUp from './SignUp';
 import Choice from './Choice';
-import PlaceHolder from './PlaceHolder';
+// import PlaceHolder from './PlaceHolder';
 import CreateSession from './CreateSession';
 import ViewData from './ViewData';
 import Status from './Status';
+import About from './About';
 
 const App = ({login, page, appStatus, ping}) => {
 
@@ -20,6 +21,8 @@ const App = ({login, page, appStatus, ping}) => {
     switch (page) {
       case 'signup':
         return <SignUp />;
+      case 'about':
+        return <About />
       default: 
         return <LogIn />;
     }
@@ -33,8 +36,8 @@ const App = ({login, page, appStatus, ping}) => {
         return <CreateSession />;
       case 'viewData':
         return <ViewData />;
-      case 'placeHolder':
-        return <PlaceHolder />
+      case 'about':
+        return <About />
       default: 
         return <Choice />;
     }
