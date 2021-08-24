@@ -4,7 +4,8 @@ import {changePage} from '../actions';
 
 const About = ({changePage}) => {
   return (
-    <div className='ui container about'>
+    <div className='ui container about'
+      onClick={() => changePage('home')}>
       <h2>About Cycle Tracker</h2>
       <p>
         Hi there, and welcome to this app designed to track you cycling and fitness progression.
@@ -35,6 +36,13 @@ const About = ({changePage}) => {
         <a href="https://semantic-ui.com/" target="_blank" rel="noreferrer">Semantic UI</a>
         <span>, and </span>
         <a href="https://recharts.org" target="_blank" rel="noreferrer">Recharts</a>
+      </p>
+      <hr />
+      <p>Have you noticed a 
+        <a href="mailto:sam@iamasamwich.com?subject=Cycle Tracker: I found this bug..." target="_blank" rel="noreferrer"> bug </a> 
+        or want to 
+        <a href="mailto:sam@iamasamwich.com?subject=Cycle Tracker: I have a suggestion... " target="_blank" rel="noreferrer"> suggest a feature</a>
+        ? Click the links to email the developers!  
       </p>
 
       <button
