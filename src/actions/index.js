@@ -1,7 +1,6 @@
 import api from '../apis';
 
 const doIt = (type, payload, dispatch) => {
-  console.log('doing it...', type, payload)
   switch (type) {
     case 'login':
       return dispatch({type: 'LOGIN', payload: true});
