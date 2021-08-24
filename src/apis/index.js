@@ -1,6 +1,13 @@
+const url = () => {
+  if (process.env.NODE_ENV === 'development') {
+    return "https://localhost:3000"
+  } else {
+    return process.env.HOST + ':' + process.env.PORT
+  };
+}
+
 const api = {
-  url: 'https://localhost:3000',
-  // url: 'https://192.168.43.5:3000',
+  url: url(),
   options: {
     headers: {'Content-Type': 'application/json'},
     credentials: 'include'
