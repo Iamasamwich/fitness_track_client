@@ -1,13 +1,7 @@
-const url = () => {
-  if (process.env.NODE_ENV === 'development') {
-    return "https://localhost:3000"
-  } else {
-    return "https://localhost:3031"
-  };
-};
+const host = window.location.host === "localhost:3001" ? 'http://localhost:3000' : '';
 
 const api = {
-  url: url(),
+  url: `${host}`,
   options: {
     headers: {'Content-Type': 'application/json'},
     credentials: 'include'
