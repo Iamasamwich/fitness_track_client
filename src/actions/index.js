@@ -30,7 +30,6 @@ const catch500 = (dispatch) => {
 };
 
 
-
 export const ping = () => async dispatch => {
   await fetch(api.url + '/ping',
     {...api.options, method: 'GET'}
@@ -126,11 +125,7 @@ export const createSession = (body) => async dispatch => {
     if (res.status === 201) {
       doIt('status', null, dispatch);
       doIt('changePage', 'home', dispatch);
-    } else {
-      doIt('status', res.status, dispatch);
-      doIt('changePage', 'home', dispatch);
-    };
-    if (res.status === 401) {
+    } else if (res.status === 401) {
       status401(dispatch);
     } else {
       doIt('status', res.status, dispatch);

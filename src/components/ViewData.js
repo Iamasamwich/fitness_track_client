@@ -164,17 +164,17 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions, fetchAll}) => {
         <div className="graph-buttons">
           <button 
             className={`ui button ${setColour('speed')}`}
-            onClick={e => setDisplay('speed')}>
+            onClick={() => setDisplay('speed')}>
             Speed
           </button>
           <button 
             className={`ui button ${setColour('time')}`}
-            onClick={e => setDisplay('time')}>
+            onClick={() => setDisplay('time')}>
             Time
           </button>
           <button
             className={`ui button ${setColour('weight')}`}
-            onClick={e => setDisplay('weight')}>
+            onClick={() => setDisplay('weight')}>
             Weight
           </button>
         </div>
@@ -201,6 +201,7 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions, fetchAll}) => {
   if (!fetchedSessions || fetchedSessions.length === 0) {
     return null;
   } else {
+    console.log(display);
     return (
       <div className="ui container data">
         <h2>Your session data:</h2>
