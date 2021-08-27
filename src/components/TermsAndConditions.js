@@ -26,6 +26,7 @@ const TermsAndConditions = ({readTandC}) => {
           The users of The Cycle Tracker App understand and agree that:
         </p>
         <ol>
+          <li>Any semblance of security associated with The App is entirely incidental.</li>
           <li>The developers and adminstrators of The Cycle Tracker App created it for their own amusement, and it shouldn't be treated as a serious service.</li>
           <li>Use of The App is entirely at The User's own risk, including the security of any data they submit to The App.</li>
           <li>No liablity will be taken by the developers, administrators, or owners of The Cycle Tracker App for any losses of any kind resulting from the use of The App.</li>
@@ -35,7 +36,6 @@ const TermsAndConditions = ({readTandC}) => {
           <li>The developers, administrators, and owners of The Cycle Tracker App reserve the right to delete The App at any time without prior warning.</li>
         </ol>
         <button id="tandcButton">I have read and agree to this</button>
-         {/* onClick={() => readTandC(true)}>I have read and agree to this</button> */}
       </div>
     </div>
   );

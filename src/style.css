@@ -384,3 +384,11 @@ h1, h2 {
 .tandc-contents > button {
   background-color: greenyellow;
 }
+
+.signup-warning {
+  font-size: 12px;
+  margin: 5px;
+  padding: 5px;
+  border: 1px solid black;
+  text-align: justify;
+}

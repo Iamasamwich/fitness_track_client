@@ -170,6 +170,18 @@ const SignUp = ({signUp, changePage}) => {
             Cancel
           </button>
       </form>
+      <div className='signup-warning'>
+        <h4>Note:</h4>
+        <p>
+          You need to put a unique email here for login purposes, but it doesn't (and probably shouldn't) be your actual email address...
+        </p>
+        <p>
+          The administrators of this App aren't going to verify the email address or send anything to it.
+        </p>
+        <p>
+          I recommend using your-first-name@your-first-name.com to make it easy to remember. If you get a duplication error then make up a different email.
+        </p>
+      </div>
     </div>
   );
 };
