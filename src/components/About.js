@@ -44,6 +44,12 @@ const About = ({changePage}) => {
         <a href="mailto:sam@iamasamwich.com?subject=Cycle Tracker: I have a suggestion... " target="_blank" rel="noreferrer"> suggest a feature</a>
         ? Click the links to email the developers!  
       </p>
+      <hr />
+      <p>Future improvements:</p>
+      <ul>
+        <li>Add profile editing including updating your password.</li>
+        <li>Editing and deleting sessions if you make a mistake while entering the data.</li>
+      </ul>
 
       <button
         className='ui button green'

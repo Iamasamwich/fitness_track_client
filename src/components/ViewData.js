@@ -201,7 +201,6 @@ const ViewData = ({sessions, getMonthSessions, getAllSessions, fetchAll}) => {
   if (!fetchedSessions || fetchedSessions.length === 0) {
     return null;
   } else {
-    console.log(display);
     return (
       <div className="ui container data">
         <h2>Your session data:</h2>
