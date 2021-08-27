@@ -132,6 +132,7 @@ const CreateSession = ({changePage, createSession}) => {
           <div className={`field ${dateError}`}>
             <label>Session Date</label>
             <DateInput
+              popupPosition='bottom left'
               name="date"
               placeholder="Date"
               value={date}
