@@ -139,6 +139,7 @@ export const createSession = (body) => async dispatch => {
 
 export const getMonthSessions = () => async dispatch => {
   doIt('status', 'loading', dispatch);
+  doIt('fetchChange', false, dispatch);
   await fetch(api.url + '/getMonthSessions', 
     {...api.options, method: 'GET'}
   )
@@ -164,7 +165,7 @@ export const getMonthSessions = () => async dispatch => {
 
 export const getAllSessions = () => async dispatch => {
   doIt('status', 'loading', dispatch);
-  doIt('fetchChange', false, dispatch);
+  // doIt('fetchChange', false, dispatch);
   await fetch(api.url + '/getAllSessions',
     {...api.options, method: 'GET'}
   )

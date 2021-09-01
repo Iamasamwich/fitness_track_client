@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {changePage, fetchChange, clearError} from '../../actions';
 
-const FourOhFour = ({clearError, changePage, page, fetchChange}) => {
+const FourOhFour = ({clearError, changePage, page, fetchChange, fetchAll}) => {
 
   const containerClicked = e => {
     e.preventDefault();
@@ -14,6 +14,21 @@ const FourOhFour = ({clearError, changePage, page, fetchChange}) => {
         changePage('home');
       };
     };
+  };
+
+  const fetchAllPrompt = () => {
+    return (
+      <>
+      <br />
+      or
+      <br />
+      <span 
+      className="fakeLink" 
+      onClick={() => fetchChange(true)}>
+        get all session data
+      </span>;
+      </>
+    )
   };
 
   return (
@@ -35,14 +50,11 @@ const FourOhFour = ({clearError, changePage, page, fetchChange}) => {
                 onClick={() => changePage("createSession")}>
                   Add a new session
               </span>
-              <br />
-              or 
-              <br />
-              <span
-                className="fakeLink"
-                onClick={() => fetchChange(true)}>
-                  get all session data
-              </span>
+              {fetchAll === true ? 
+                null
+                :
+                fetchAllPrompt()
+              }
             </h2>
           </div> :
           null
@@ -55,5 +67,9 @@ const FourOhFour = ({clearError, changePage, page, fetchChange}) => {
   )
 };
 
+const mapStateToProps = ({fetchAll}) => {
+  return {fetchAll};
+};
 
-export default connect(null, {changePage, fetchChange, clearError})(FourOhFour);
+
+export default connect(mapStateToProps, {changePage, fetchChange, clearError})(FourOhFour);

@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import {connect} from 'react-redux';
 import {logout, changePage} from '../actions';
 
-const NavBar = ({login, logout, page, changePage}) => {
+const NavBar = ({login, logout, page, changePage, appStatus}) => {
   const [menu, setMenu] = useState(false);
   const ref = useRef();
 
@@ -19,6 +19,13 @@ const NavBar = ({login, logout, page, changePage}) => {
     }
   }, []);
 
+  const clickBars = () => {
+    setMenu(!menu);
+    if (page === 'viewData' && appStatus === 404) {
+      changePage('home');
+    };
+  };
+
   return (
     <div className="navbar" id="navbar">
       {login ?
@@ -31,18 +38,10 @@ const NavBar = ({login, logout, page, changePage}) => {
       <div
         ref={ref}
         className="ui dropdown"
-        onClick={() => setMenu(!menu)}>
+          onClick={() => clickBars()}>
         <i className="bars icon large" />
         <div 
           className={`cust_menu menu transition ${menu ? 'visible active' : ''}`}>
-          {/* {login ?
-            <div 
-            className="item"
-            onClick={() => changePage('placeHolder')}>
-                Profile
-            </div>
-            :
-            null} */}
           <div 
             className="item"
             onClick={() => changePage('about')}>
@@ -62,10 +61,11 @@ const NavBar = ({login, logout, page, changePage}) => {
   )
 };
 
-const mapStateToProps = ({login, page}) => {
+const mapStateToProps = ({login, page, appStatus}) => {
   return {
     login,
-    page
+    page,
+    appStatus
   }
 };
 
