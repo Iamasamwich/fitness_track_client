@@ -39,7 +39,7 @@ const CreateSession = ({changePage, createSession}) => {
 
   useEffect(() => {
     const re = /^[0-9]{0,3}[.]{0,1}[0-9]{0,3}$/;
-    if (!isNaN(distance) && distance > 0 && re.test(distance)) {
+    if (!isNaN(distance) && distance > 0 && re.test(distance) && Number(distance) < 1000) {
       setDistanceError('');
     } else {
       setDistanceError('error');
