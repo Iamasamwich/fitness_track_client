@@ -21,7 +21,7 @@ const NavBar = ({login, logout, page, changePage, appStatus}) => {
 
   const clickBars = () => {
     setMenu(!menu);
-    if (page === 'viewData' && appStatus === 404) {
+    if (appStatus !== null && appStatus !== 'loading') {
       changePage('home');
     };
   };
