@@ -1,0 +1,1 @@
+# Please refer to the fitnesstracker server [README.md](https://bitbucket.org/iamasamwich/fitnesstrackerserver/src/master/README.md)
