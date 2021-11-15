@@ -9,15 +9,16 @@
   position: relative;
 }
 
-@media only screen and (min-width: 768px){
+@media only screen and (min-width: 768px) {
   body {
     background-image: url("./bg.png");
     background-repeat: repeat;
   }
+
   #root {
     margin: 0 auto;
     max-width: 768px;
-  } 
+  }
 }
 
 .navbar {
@@ -59,13 +60,14 @@
   color: blue;
   margin: 5px 0 !important;
 }
+
 .fakeLink:hover {
-  cursor:pointer;
+  cursor: pointer;
   text-decoration: underline;
   align-items: center;
 }
 
-.time-field > *{
+.time-field>* {
   display: inline-block;
 }
 
@@ -77,10 +79,10 @@
   border: 1px solid black;
   border-radius: 1em;
   padding: 0.5em;
-  background: rgba(240,240,240,0.9);
+  background: rgba(240, 240, 240, 0.9);
 }
 
-.custom-tooltip > .label {
+.custom-tooltip>.label {
   font-weight: bold;
 }
 
@@ -89,7 +91,7 @@
   width: 100%;
 }
 
-.graph-bottom > div {
+.graph-bottom>div {
   display: flex;
   justify-content: space-around;
 }
@@ -107,7 +109,7 @@
   width: 100%;
 }
 
-.status > div {
+.status>div {
   height: calc(100vh - 40px);
   background-color: rgba(240, 240, 240, 1) !important;
   display: flex;
@@ -123,7 +125,7 @@
 }
 
 .status-spinner {
-  background-color: rgba(240,240,240,1) !important;
+  background-color: rgba(240, 240, 240, 1) !important;
   padding: 0 !important;
 }
 
@@ -143,8 +145,13 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg);}
-  100% { transform: rotate(360deg);}
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .wheel {
@@ -225,9 +232,17 @@
 }
 
 @keyframes pump {
-  0% {top: -200px;}
-  50% {top: -80px;}
-  100% {top: -200px;}
+  0% {
+    top: -200px;
+  }
+
+  50% {
+    top: -80px;
+  }
+
+  100% {
+    top: -200px;
+  }
 }
 
 #loading-pump-handle::before {
@@ -262,9 +277,23 @@
 }
 
 @keyframes tyre {
-  from {border: 20px solid black; top: 390px; left: 590px;}
-  50% {border: 30px solid black; top: 370px; left: 580px;}
-  to {border: 20px solid black; top: 390px; left: 590px;}
+  from {
+    border: 20px solid black;
+    top: 390px;
+    left: 590px;
+  }
+
+  50% {
+    border: 30px solid black;
+    top: 370px;
+    left: 580px;
+  }
+
+  to {
+    border: 20px solid black;
+    top: 390px;
+    left: 590px;
+  }
 }
 
 #loading-leak {
@@ -283,10 +312,21 @@
 }
 
 @keyframes leak {
-  0% {opacity: 0;}
-  50% {opacity: 0;}
-  70% {opacity: 0.5;}
-  100% {opacity: 0;}
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  70% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
 
 #loading-leak1 {
@@ -316,9 +356,17 @@
 }
 
 @keyframes dot1 {
-  24% {color: white;}
-  25% {color: black;}
-  100% {color: black;}
+  24% {
+    color: white;
+  }
+
+  25% {
+    color: black;
+  }
+
+  100% {
+    color: black;
+  }
 }
 
 #loading-dot2 {
@@ -326,9 +374,17 @@
 }
 
 @keyframes dot2 {
-  49% {color: white;}
-  50% {color: black;}
-  100% {color: black;}
+  49% {
+    color: white;
+  }
+
+  50% {
+    color: black;
+  }
+
+  100% {
+    color: black;
+  }
 }
 
 #loading-dot3 {
@@ -336,28 +392,37 @@
 }
 
 @keyframes dot3 {
-  74% {color: white;}
-  75% {color: black;}
-  100% {color: black;}
+  74% {
+    color: white;
+  }
+
+  75% {
+    color: black;
+  }
+
+  100% {
+    color: black;
+  }
 }
 
-h1, h2 {
+h1,
+h2 {
   text-align: center;
 }
 
-.about > h2 {
+.about>h2 {
   height: 50px;
   font-size: 30px;
   margin-bottom: 0;
 }
 
-.data > h2 {
+.data>h2 {
   font-size: 30px;
   height: 40px;
   margin-bottom: 0px;
 }
 
-#logo-container > h1 {
+#logo-container>h1 {
   margin: 0;
   font-size: 47px;
   height: 60px;
@@ -381,7 +446,7 @@ h1, h2 {
   overflow-y: scroll;
 }
 
-.tandc-contents > button {
+.tandc-contents>button {
   background-color: greenyellow;
 }
 
